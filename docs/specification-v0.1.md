@@ -136,6 +136,9 @@ Theme ID: `default`
 
 All three fields are required.
 
+`theme.json` is strict. Unknown fields and trailing or multiple JSON values MUST
+be rejected.
+
 `name` is the human-readable theme name.
 
 `version` is the Theme release version. It MUST be valid SemVer.
@@ -660,6 +663,21 @@ Example:
 {{ slot "navigation.main" . }}
 ```
 
+Slot is an HTML-fragment extension point and MUST only be valid as a direct
+action in HTML content context.
+
+Valid:
+
+```gotemplate
+<nav>{{ slot "navigation.main" . }}</nav>
+```
+
+Slot use in HTML attributes, URL contexts, JavaScript, CSS, or any other
+non-HTML-content context MUST be rejected during candidate validation, including
+when a template containing Slot is composed into such a context. Validation MUST
+preserve and rely on `html/template` contextual analysis; it MUST NOT use a
+keyword blacklist.
+
 Slot names are logical identifiers.
 
 Slots do not execute arbitrary external callbacks.
@@ -990,4 +1008,3 @@ If yes, do not add it.
 Thema is a small Go-native HTML theme runtime that preserves `html/template`
 compatibility while adding structured themes, localization, safe runtime
 refresh, helpers, extension slots, and deterministic presentation management.
-

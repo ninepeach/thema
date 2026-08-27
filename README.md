@@ -118,6 +118,9 @@ The manifest fields are all required:
 - `version`: valid SemVer Theme release version.
 - `thema`: Theme Contract version. Thema v0.1 accepts exactly `0.1`.
 
+`theme.json` is strict: unknown fields, missing required fields, and trailing or
+multiple JSON values are rejected.
+
 An incompatible contract prevents activation. Templates, locales, assets, and
 the manifest always come from the same active Theme generation.
 
@@ -245,6 +248,17 @@ A Theme can expose an extension point:
 
 ```gotemplate
 {{ slot "navigation.main" . }}
+```
+
+A Slot is an HTML-fragment extension point. It is valid only as a direct action
+in HTML content context, such as inside a `<nav>` element. Candidate validation
+uses `html/template`'s contextual analysis and rejects Slot use in attributes,
+URLs, JavaScript, CSS, or any other non-HTML-content context, including indirect
+use through `{{ template }}` composition.
+
+```gotemplate
+<nav>{{ slot "navigation.main" . }}</nav>            {{/* valid */}}
+<a title="{{ slot "navigation.main" . }}">Link</a>  {{/* rejected */}}
 ```
 
 Trusted application code registers existing Theme templates:
@@ -376,4 +390,3 @@ go run ./examples/basic
 The frozen, normative v0.1 contract is
 [`docs/specification-v0.1.md`](docs/specification-v0.1.md). If implementation or
 other documentation conflicts with it, the frozen specification wins.
-

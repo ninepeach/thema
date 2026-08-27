@@ -94,7 +94,7 @@ func (e *Engine) Refresh(ctx context.Context) (bool, error) {
 		return false, fmt.Errorf("%w: %w", ErrRefresh, err)
 	}
 	active := e.current.Load()
-	if active.pkg.version == candidatePackage.version {
+	if active.pkg.generation == candidatePackage.generation {
 		return false, nil
 	}
 	if err := ctx.Err(); err != nil {

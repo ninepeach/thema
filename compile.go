@@ -55,6 +55,9 @@ func compileSnapshot(pkg *themePackage, funcs template.FuncMap, cfg config, cont
 	if err := validateTemplateReferences(compiled); err != nil {
 		return nil, invalidTheme(pkg.id, "%v", err)
 	}
+	if err := validateSlotContexts(compiled, parseFuncs); err != nil {
+		return nil, invalidTheme(pkg.id, "%v", err)
+	}
 	if err := validateContributions(compiled, contributions); err != nil {
 		return nil, err
 	}

@@ -102,11 +102,11 @@ func (e *Engine) assetURL(active *snapshot, name string) (string, error) {
 	for index := range parts {
 		parts[index] = url.PathEscape(parts[index])
 	}
-	version := active.pkg.version
-	if len(version) > 16 {
-		version = version[:16]
+	generation := active.pkg.generation
+	if len(generation) > 16 {
+		generation = generation[:16]
 	}
-	return e.config.assetBaseURL + "/" + url.PathEscape(active.pkg.id) + "/" + strings.Join(parts, "/") + "?v=" + url.QueryEscape(version), nil
+	return e.config.assetBaseURL + "/" + url.PathEscape(active.pkg.id) + "/" + strings.Join(parts, "/") + "?v=" + url.QueryEscape(generation), nil
 }
 
 type contextWriter struct {

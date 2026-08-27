@@ -35,7 +35,7 @@ type themePackage struct {
 	templates    []templateSource
 	translations map[string]map[string]string
 	assets       map[string]struct{}
-	version      string
+	generation   string
 }
 
 type sourceResource struct {
@@ -186,7 +186,7 @@ func loadTheme(ctx context.Context, repository, themeID string) (*themePackage, 
 	if len(pkg.templates) == 0 {
 		return nil, invalidTheme(themeID, "at least one .html template is required")
 	}
-	pkg.version = fingerprint(themeID, resources)
+	pkg.generation = fingerprint(themeID, resources)
 	return pkg, nil
 }
 
@@ -220,6 +220,7 @@ func classifyResource(rel string) (kind, logical string, recognized bool, err er
 
 func decodeManifest(data []byte, dst *manifest) error {
 	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
 	if err := decoder.Decode(dst); err != nil {
 		return err
 	}
