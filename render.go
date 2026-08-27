@@ -43,6 +43,10 @@ func (e *Engine) Render(ctx context.Context, w io.Writer, name string, data any,
 	if err != nil {
 		return fmt.Errorf("%w: template %q: %w", ErrRender, name, err)
 	}
+	// Go 1.22's Clone does not retain the missingkey option. Reapply the
+	// immutable Engine setting so strict behavior is consistent across the
+	// supported Go versions.
+	executable.Option(e.config.missingKey)
 	runtimeFuncs := template.FuncMap{
 		"t": func(key string, values ...any) (string, error) {
 			if err := ctx.Err(); err != nil {
