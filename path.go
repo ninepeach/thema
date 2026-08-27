@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	semverPattern = regexp.MustCompile(`^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$`)
-	localePattern = regexp.MustCompile(`^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$`)
+	semverPattern     = regexp.MustCompile(`^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$`)
+	localePattern     = regexp.MustCompile(`^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$`)
 	identifierPattern = regexp.MustCompile(`^[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?$`)
 )
 
@@ -43,7 +43,7 @@ func validateLogicalPath(name string) error {
 }
 
 func validateThemeID(id string) error {
-	if err := validateLogicalPath(id); err != nil || strings.Contains(id, "/") {
+	if err := validateLogicalPath(id); err != nil || strings.Contains(id, "/") || !identifierPattern.MatchString(id) {
 		return fmt.Errorf("%w: invalid theme ID %q", ErrInvalidTheme, id)
 	}
 	return nil

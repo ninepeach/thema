@@ -72,4 +72,3 @@ func TestMissingTranslationReturnsKey(t *testing.T) {
 	}
 	assertRender(t, views, "pages/home", nil, "missing.key")
 }
-

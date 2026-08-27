@@ -116,4 +116,3 @@ func (w contextWriter) Write(value []byte) (int, error) {
 	}
 	return w.writer.Write(value)
 }
-

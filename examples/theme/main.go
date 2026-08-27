@@ -17,4 +17,3 @@ func main() {
 	// Thema never starts a hidden ticker or background goroutine.
 	_, _ = views.Refresh(context.Background())
 }
-

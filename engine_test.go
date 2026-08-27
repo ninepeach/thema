@@ -268,4 +268,3 @@ func ExampleNew() {
 	// Output:
 	// func(string, string, ...thema.Option) (*thema.Engine, error)
 }
-

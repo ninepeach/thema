@@ -9,10 +9,10 @@ import (
 const defaultLocale = "en"
 
 type config struct {
-	defaultLocale     string
-	missingKey        string
-	assetBaseURL      string
-	initialFuncs      template.FuncMap
+	defaultLocale string
+	missingKey    string
+	assetBaseURL  string
+	initialFuncs  template.FuncMap
 }
 
 // Option configures an Engine before its first Theme Snapshot is compiled.
@@ -87,4 +87,3 @@ func WithLocale(locale string) RenderOption {
 		return nil
 	}
 }
-

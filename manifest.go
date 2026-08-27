@@ -1,5 +1,7 @@
 package thema
 
+import "strings"
+
 const themeContractVersion = "0.1"
 
 type manifest struct {
@@ -9,7 +11,7 @@ type manifest struct {
 }
 
 func (m manifest) validate(themeID string) error {
-	if m.Name == "" || m.Version == "" || m.Thema == "" {
+	if strings.TrimSpace(m.Name) == "" || m.Version == "" || m.Thema == "" {
 		return invalidTheme(themeID, "theme.json requires name, version, and thema")
 	}
 	if !validSemver(m.Version) {

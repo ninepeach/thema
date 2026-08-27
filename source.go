@@ -30,12 +30,12 @@ type templateSource struct {
 }
 
 type themePackage struct {
-	id          string
-	manifest    manifest
-	templates   []templateSource
+	id           string
+	manifest     manifest
+	templates    []templateSource
 	translations map[string]map[string]string
-	assets      map[string]struct{}
-	version     string
+	assets       map[string]struct{}
+	version      string
 }
 
 type sourceResource struct {
@@ -84,7 +84,11 @@ func loadTheme(ctx context.Context, repository, themeID string) (*themePackage, 
 		if entry.IsDir() {
 			return nil
 		}
-		if !entry.Type().IsRegular() {
+		entryInfo, err := entry.Info()
+		if err != nil {
+			return invalidTheme(themeID, "cannot inspect %s", logicalFS)
+		}
+		if !entryInfo.Mode().IsRegular() {
 			return invalidTheme(themeID, "non-regular files are not permitted: %s", logicalFS)
 		}
 
@@ -94,10 +98,6 @@ func loadTheme(ctx context.Context, repository, themeID string) (*themePackage, 
 		}
 		if !recognized {
 			return nil
-		}
-		entryInfo, err := entry.Info()
-		if err != nil {
-			return invalidTheme(themeID, "cannot inspect %s", logicalFS)
 		}
 		if entryInfo.Size() > maxFileSize {
 			return invalidTheme(themeID, "%s exceeds the %d-byte file limit", logicalFS, maxFileSize)
@@ -109,6 +109,13 @@ func loadTheme(ctx context.Context, repository, themeID string) (*themePackage, 
 		data, err := os.ReadFile(filename)
 		if err != nil {
 			return invalidTheme(themeID, "cannot read %s", logicalFS)
+		}
+		if len(data) > maxFileSize {
+			return invalidTheme(themeID, "%s exceeds the %d-byte file limit", logicalFS, maxFileSize)
+		}
+		totalSize += int64(len(data)) - entryInfo.Size()
+		if totalSize > maxThemeSize {
+			return invalidTheme(themeID, "Theme exceeds the %d-byte resource limit", maxThemeSize)
 		}
 		resources = append(resources, sourceResource{kind: kind, logical: logical, data: data})
 		return nil

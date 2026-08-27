@@ -52,4 +52,3 @@ func orderedContributions(entries []registeredContribution) []registeredContribu
 	})
 	return result
 }
-

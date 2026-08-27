@@ -11,7 +11,7 @@ import (
 )
 
 type translator struct {
-	messages       map[string]map[string]string
+	messages      map[string]map[string]string
 	defaultLocale string
 }
 

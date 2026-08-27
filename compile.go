@@ -140,4 +140,3 @@ func cloneFuncMap(source template.FuncMap) template.FuncMap {
 	}
 	return result
 }
-

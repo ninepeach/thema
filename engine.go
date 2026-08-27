@@ -17,8 +17,8 @@ type Engine struct {
 
 	current atomic.Pointer[snapshot]
 
-	mutationMu      sync.Mutex
-	funcs           template.FuncMap
+	mutationMu       sync.Mutex
+	funcs            template.FuncMap
 	nextContribution uint64
 }
 

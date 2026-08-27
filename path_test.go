@@ -30,6 +30,7 @@ func TestManifestValidation(t *testing.T) {
 	}{
 		{name: "missing field", manifest: `{"name":"Default","version":"1.0.0"}`, want: ErrInvalidTheme},
 		{name: "bad semver", manifest: `{"name":"Default","version":"1.0","thema":"0.1"}`, want: ErrInvalidTheme},
+		{name: "bad semver prerelease", manifest: `{"name":"Default","version":"1.0.0-alpha.01","thema":"0.1"}`, want: ErrInvalidTheme},
 		{name: "bad contract", manifest: `{"name":"Default","version":"1.0.0","thema":"0.2"}`, want: ErrIncompatibleTheme},
 	} {
 		t.Run(test.name, func(t *testing.T) {

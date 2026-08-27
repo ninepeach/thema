@@ -10,7 +10,7 @@ import (
 
 func TestContributionsAreDeterministicAndRemovable(t *testing.T) {
 	repository := newTestTheme(t, map[string]string{
-		"pages/home.html": `{{slot "navigation.main" .}}`,
+		"pages/home.html":      `{{slot "navigation.main" .}}`,
 		"contributions/a.html": `A{{.}}`,
 		"contributions/b.html": `B{{.}}`,
 		"contributions/c.html": `C{{.}}`,
