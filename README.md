@@ -375,11 +375,11 @@ planning, and publishing remain application responsibilities.
 
 ### Basic
 
-[`examples/basic`](examples/basic) is a runnable getting-started tutorial for
-common day-to-day Thema usage. The tutorial website teaches through its own
-working templates: typed ViewModels, native root-dot data, `if`/`else`, `with`,
-`range`, template composition, assets, one trusted helper, and application-owned
-`net/http` integration.
+[`examples/basic`](examples/basic) is the complete English-only Thema v0.1
+tutorial. Its small working site covers startup, rendering, typed ViewModels,
+native template composition and logic, trusted helpers, assets, built-in i18n,
+Slots and Contributions, refresh, context, options, and core error/safety
+behavior.
 
 ```sh
 cd examples/basic
@@ -388,11 +388,12 @@ go run .
 
 Open [http://localhost:8080](http://localhost:8080).
 
-The three tutorial pages are:
+The four tutorial pages are:
 
 - `/` — Getting Started
-- `/templates` — Templates
-- `/data` — Data & Logic
+- `/templates` — Templates & Data
+- `/runtime` — Runtime Features
+- `/reference` — Core API
 
 ### Advanced
 
@@ -410,11 +411,12 @@ go run .
 Open [http://localhost:8080](http://localhost:8080), then visit `/services`,
 `/work`, `/about`, `/contact`, or use `/?lang=en` and `/?lang=zh`.
 
-Basic focuses on normal day-to-day usage; Advanced covers Thema-specific
-capabilities such as i18n, Slots, Contributions, and a fuller HTTP server
-lifecycle. Both servers belong only to their examples and use Go's standard
-`net/http` package. Thema itself does not provide routing, middleware, or static
-file serving.
+Basic teaches the full v0.1 surface while keeping its visible UI English-only;
+it uses one English catalog to demonstrate the built-in translator without
+implementing language selection. Advanced shows genuinely multilingual product
+behavior, richer composition, and a fuller HTTP server lifecycle. Both servers
+belong only to their examples and use Go's standard `net/http` package. Thema
+itself does not provide routing, middleware, or static file serving.
 
 ## Specification
 

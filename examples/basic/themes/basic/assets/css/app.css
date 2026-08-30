@@ -130,6 +130,25 @@ pre code { padding: 0; background: none; font-size: .88rem; }
 
 .tag-summary { margin-bottom: 0; color: var(--muted); font-size: .88rem; }
 
+.notice,
+.translation-demo {
+    padding: .85rem 1rem;
+    border-left: 3px solid var(--accent);
+    background: #f7f8fa;
+}
+
+.notice { margin-top: 2rem; }
+
+.api-list dt {
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+.api-list dd {
+    margin: .2rem 0 0;
+    color: var(--muted);
+}
+
 footer {
     margin-top: 3rem;
     padding: 1.5rem 0 2.5rem;

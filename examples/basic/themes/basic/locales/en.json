@@ -1,0 +1,5 @@
+{
+  "tutorial": {
+    "welcome": "Welcome to the {{name}} runtime tutorial."
+  }
+}

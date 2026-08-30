@@ -1,43 +1,73 @@
 {{ template "components/header" . }}
 <main>
     <header class="page-heading">
-        <p class="kicker">Tutorial 2 of 3</p>
+        <p class="kicker">Tutorial 2 of 4</p>
         <h1>{{ .Title }}</h1>
         {{ with .Description }}<p>{{ . }}</p>{{ end }}
     </header>
 
     <section>
-        <h2>Standard Go templates</h2>
-        <p>Thema does not introduce a custom template language. Fields are read from the value passed to <code>Render</code>, so <code>.Title</code> and <code>.Site.Name</code> work unchanged.</p>
-<pre><code>&lt;h1&gt;&#123;&#123; .Title &#125;&#125;&lt;/h1&gt;
-&lt;p&gt;&#123;&#123; .Site.Name &#125;&#125;&lt;/p&gt;</code></pre>
+        <h2>Native data access</h2>
+        <p>Thema does not introduce a template language or data wrapper. Root and nested fields use normal <code>html/template</code> syntax.</p>
+<pre><code>&#123;&#123; .Title &#125;&#125;
+&#123;&#123; .Site.Name &#125;&#125;
+
+&#123;&#123; with .Description &#125;&#125;
+    &lt;p&gt;&#123;&#123; . &#125;&#125;&lt;/p&gt;
+&#123;&#123; end &#125;&#125;</code></pre>
     </section>
 
     <section>
-        <h2>Template composition</h2>
-        <p>This page uses the same header and footer as the other tutorial pages. Composition is Go's native <code>template</code> action.</p>
+        <h2>Conditions</h2>
+        <p>Each live component below chooses its label from the typed <code>Recommended</code> field.</p>
+<pre><code>&#123;&#123; if .Recommended &#125;&#125;
+    Start here
+&#123;&#123; else &#125;&#125;
+    Next step
+&#123;&#123; end &#125;&#125;</code></pre>
+    </section>
+
+    <section>
+        <h2>Lists and components</h2>
+        <p>A file's logical path automatically names its primary template; native <code>define</code> remains available for additional names. Pages compose shared files with Go's <code>template</code> action. Inside <code>range</code>, dot becomes the current item; <code>$</code> still refers to the page root.</p>
 <pre><code>&#123;&#123; template "components/header" . &#125;&#125;
-&lt;main&gt;
-    ...
-&lt;/main&gt;
-&#123;&#123; template "components/footer" . &#125;&#125;</code></pre>
-    </section>
 
-    <section>
-        <h2>Components and context</h2>
-        <p>A component receives the value explicitly passed to it. Inside this range, dot changes from the page to the current example.</p>
-<pre><code>&#123;&#123; range .Examples &#125;&#125;
+&#123;&#123; range .Examples &#125;&#125;
     &#123;&#123; template "components/example-card" . &#125;&#125;
+    &#123;&#123; range .Tags &#125;&#125;&lt;span&gt;&#123;&#123; . &#125;&#125;&lt;/span&gt;&#123;&#123; end &#125;&#125;
+    &#123;&#123; $.Site.Name &#125;&#125;
+&#123;&#123; else &#125;&#125;
+    &lt;p&gt;No examples available.&lt;/p&gt;
 &#123;&#123; end &#125;&#125;</code></pre>
         <div class="example-list">
             {{ range .Examples }}
                 <div class="example-entry">
-                    <p class="source">From {{ $.Site.Name }} page data</p>
+                    <p class="source">Rendered for {{ $.Site.Name }}</p>
                     {{ template "components/example-card" . }}
                 </div>
+            {{ else }}
+                <p>No examples available.</p>
             {{ end }}
         </div>
-        <p>The root variable <code>$</code> still refers to the page data after dot changes, which is why <code>$.Site.Name</code> can render “{{ .Site.Name }}” above each component.</p>
+    </section>
+
+    <section>
+        <h2>Trusted helpers</h2>
+        <p>The cards use one application-owned helper. <code>WithFuncs</code> registers helpers needed by the initial Theme; <code>Engine.Funcs</code> can add or replace trusted helpers later with transactional recompilation.</p>
+<pre><code>thema.WithFuncs(template.FuncMap{
+    "join": strings.Join,
+})
+
+&#123;&#123; join .Tags ", " &#125;&#125;</code></pre>
+        <p>The runtime names <code>t</code>, <code>asset</code>, and <code>slot</code> are reserved and cannot be replaced.</p>
+    </section>
+
+    <section>
+        <h2>Escaping and assets</h2>
+        <p>The dynamic ViewModel text “{{ .EscapedText }}” is rendered as normal text, so its angle brackets are escaped by <code>html/template</code>. Basic registers no raw HTML helper.</p>
+<pre><code>&lt;link rel="stylesheet"
+      href="&#123;&#123; asset "css/app.css" &#125;&#125;"&gt;</code></pre>
+        <p><code>asset</code> validates the logical asset path and returns <code>/assets/basic/css/app.css?v=&lt;generation&gt;</code>. Thema generates the Theme-aware URL; this example's <code>net/http</code> handler serves the file.</p>
     </section>
 </main>
 {{ template "components/footer" . }}

@@ -1,27 +1,36 @@
 {{ template "components/header" . }}
 <main>
     <header class="page-heading">
-        <p class="kicker">Tutorial 1 of 3</p>
+        <p class="kicker">Tutorial 1 of 4</p>
         <h1>{{ .Title }}</h1>
         {{ with .Description }}<p>{{ . }}</p>{{ end }}
     </header>
 
     <section>
         <h2>Start with a theme</h2>
-        <p>{{ .Site.Name }} is a small Go-native theme runtime built on <code>html/template</code>. A theme groups its manifest, templates, and assets.</p>
-<pre><code>themes/basic/
-├── theme.json
-├── templates/
-│   └── pages/
-│       └── home.html
-└── assets/
-    └── css/
-        └── app.css</code></pre>
+        <p>{{ .Site.Name }} is a small Go-native theme runtime built on <code>html/template</code>. A Theme Repository contains one or more Theme directories; the directory name is the Theme ID.</p>
+<pre><code>themes/
+└── basic/                 # active Theme ID
+    ├── theme.json
+    ├── templates/
+    │   └── pages/home.html
+    ├── locales/en.json
+    └── assets/css/app.css</code></pre>
+    </section>
+
+    <section>
+        <h2>Declare the manifest</h2>
+        <p>The manifest is strict. Its name, SemVer release version, and Thema contract version are required.</p>
+<pre><code>{
+  "name": "Basic Example",
+  "version": "1.0.0",
+  "thema": "0.1"
+}</code></pre>
     </section>
 
     <section>
         <h2>Create the engine</h2>
-        <p>Pass the Theme Repository and active Theme ID to <code>New</code>. <code>Must</code> is convenient during application startup.</p>
+        <p>Pass the Theme Repository and active Theme ID to <code>New</code>. <code>Must</code> is convenient when startup should stop on invalid Theme input.</p>
 <pre><code>views := thema.Must(
     thema.New("./themes", "basic"),
 )</code></pre>
@@ -29,32 +38,22 @@
 
     <section>
         <h2>Render a logical template</h2>
-        <p>The source file <code>templates/pages/home.html</code> is rendered by its logical name, without the extension.</p>
-<pre><code>err := views.Render(
+        <p>The source file <code>templates/pages/home.html</code> is rendered as <code>pages/home</code>. <code>Render</code> accepts a context, any <code>io.Writer</code>, the logical name, and typed application data.</p>
+<pre><code>view := PageView{Title: "Getting Started"}
+err := views.Render(
     r.Context(),
     w,
     "pages/home",
     view,
 )</code></pre>
-    </section>
-
-    <section>
-        <h2>Pass typed data</h2>
-        <p>Application data remains the native root dot. Thema does not add a <code>.Data</code> wrapper.</p>
-<pre><code>type PageView struct {
-    Title       string
-    Description string
-}
-
-&lt;h1&gt;&#123;&#123; .Title &#125;&#125;&lt;/h1&gt;
-&lt;p&gt;&#123;&#123; .Description &#125;&#125;&lt;/p&gt;</code></pre>
+        <p>Application data remains the native root dot: <code>&#123;&#123; .Title &#125;&#125;</code>, never <code>.Data.Title</code>.</p>
     </section>
 
     <section>
         <h2>Run this example</h2>
 <pre><code>cd examples/basic
 go run .</code></pre>
-        <p>Continue with <a href="/templates">Templates</a>, then <a href="/data">Data &amp; Logic</a>.</p>
+        <p>Continue with <a href="/templates">Templates</a>, <a href="/runtime">Runtime Features</a>, and the compact <a href="/reference">Core API</a> map.</p>
     </section>
 </main>
 {{ template "components/footer" . }}

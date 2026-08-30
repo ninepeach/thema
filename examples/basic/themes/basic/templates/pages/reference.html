@@ -1,0 +1,84 @@
+{{ template "components/header" . }}
+<main>
+    <header class="page-heading">
+        <p class="kicker">Tutorial 4 of 4</p>
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    </header>
+
+    <section>
+        <h2>Engine</h2>
+<pre><code>New(repository, activeTheme string, opts ...Option) (*Engine, error)
+Must(*Engine, error) *Engine
+(*Engine).Render(context.Context, io.Writer, string, any, ...RenderOption) error
+(*Engine).Refresh(context.Context) (bool, error)
+(*Engine).Funcs(template.FuncMap) error</code></pre>
+        <p><code>Render</code> accepts any <code>io.Writer</code>, so the same API supports HTTP responses, buffers, and static files. Thema owns no global Engine.</p>
+    </section>
+
+    <section>
+        <h2>Extensions</h2>
+<pre><code>type Contribution struct {
+    ID       string
+    Template string
+    Order    int
+}
+
+(*Engine).Contribute(slot string, contribution Contribution) error
+(*Engine).RemoveContribution(slot, id string) bool</code></pre>
+    </section>
+
+    <section>
+        <h2>Engine options</h2>
+        <p><code>Option</code> values configure <code>New</code> before the first Snapshot is compiled.</p>
+        <dl class="api-list">
+            <dt><code>WithDefaultLocale(locale)</code></dt>
+            <dd>Sets the built-in translator's final fallback locale; default <code>en</code>.</dd>
+            <dt><code>WithStrictMissingKeys()</code></dt>
+            <dd>Makes missing map keys fail execution; default behavior remains compatible with <code>html/template</code>.</dd>
+            <dt><code>WithAssetBaseURL(base)</code></dt>
+            <dd>Changes the built-in asset URL prefix; default <code>/assets</code>.</dd>
+            <dt><code>WithFuncs(template.FuncMap)</code></dt>
+            <dd>Registers trusted helpers before the initial Snapshot is compiled.</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h2>Render options</h2>
+        <p><code>RenderOption</code> values configure one Render call.</p>
+        <dl class="api-list">
+            <dt><code>WithLocale(locale)</code></dt>
+            <dd>Selects a locale for one Render call without shared mutable locale state.</dd>
+        </dl>
+        <p>v0.1 provides its translator automatically; it has no public custom Translator replacement API.</p>
+    </section>
+
+    <section>
+        <h2>Built-in template helpers</h2>
+        <dl class="api-list">
+            <dt><code>asset "css/app.css"</code></dt>
+            <dd>Returns a validated, Theme-generation-aware asset URL.</dd>
+            <dt><code>t "key" "name" value</code></dt>
+            <dd>Looks up a translation and interpolates name/value pairs as a normally escaped string.</dd>
+            <dt><code>slot "page.notice" .</code></dt>
+            <dd>Renders ordered Contributions in direct HTML content context.</dd>
+        </dl>
+    </section>
+
+    <section>
+        <h2>Stable errors</h2>
+<pre><code>ErrTemplateNotFound      ErrInvalidTheme
+ErrInvalidPath           ErrIncompatibleTheme
+ErrDuplicateContribution ErrRender
+ErrRefresh</code></pre>
+        <p>Use <code>errors.Is</code> to classify errors. Invalid manifests, Theme IDs, logical paths, helper names, Slot identifiers, and Contribution data are rejected. Missing templates return <code>ErrTemplateNotFound</code>; failed candidate refreshes also wrap <code>ErrRefresh</code> while retaining the active Snapshot.</p>
+    </section>
+
+    <section>
+        <h2>Boundary and safety</h2>
+        <p>Themes contain presentation resources, not Go code or server capabilities. v0.1 recognizes <code>.html</code> templates, direct-child JSON locale catalogs, assets, and the strict manifest. Logical paths reject traversal and filesystem names; symlinks and non-regular resources are rejected.</p>
+        <p>One active Theme supplies one coherent manifest, template, locale, and asset generation. Source names are resolved deterministically before parsing. Default limits are 1,000 templates, 8 MiB per recognized file, and 128 MiB per generation.</p>
+        <p>Thema supplies no router, middleware, static file server, bundler, filesystem watcher, or raw HTML helper. Application data and trusted functions determine template capability, while <code>html/template</code> provides contextual escaping.</p>
+    </section>
+</main>
+{{ template "components/footer" . }}

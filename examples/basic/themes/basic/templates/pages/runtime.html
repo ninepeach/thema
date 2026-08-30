@@ -1,0 +1,51 @@
+{{ template "components/header" . }}
+<main>
+    <header class="page-heading">
+        <p class="kicker">Tutorial 3 of 4</p>
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    </header>
+
+    {{ slot "page.notice" . }}
+
+    <section>
+        <h2>i18n primitives</h2>
+        <p>The built-in translator loads JSON catalogs from <code>locales/</code>. This English-only site uses one real key with interpolation:</p>
+        <p class="translation-demo">{{ t "tutorial.welcome" "name" .Site.Name }}</p>
+<pre><code>// locales/en.json
+{"tutorial":{"welcome":"Welcome to the &#123;&#123;name&#125;&#125; runtime tutorial."}}
+
+&#123;&#123; t "tutorial.welcome" "name" .Site.Name &#125;&#125;
+
+views.Render(ctx, w, "pages/runtime", data,
+    thema.WithLocale("en"))</code></pre>
+        <p><code>WithDefaultLocale</code> configures fallback for the Engine; <code>WithLocale</code> selects a locale for one Render. Lookup tries the requested locale, its base language, the default locale, then its base language; an unresolved key renders as the key. The application—not Thema—decides locale policy from cookies, preferences, headers, or other inputs.</p>
+    </section>
+
+    <section>
+        <h2>Slots and Contributions</h2>
+        <p>The note above is live output from the <code>page.notice</code> Slot. The Theme declares the extension point and trusted application code registers an existing template.</p>
+<pre><code>&#123;&#123; slot "page.notice" . &#125;&#125;
+
+views.Contribute("page.notice", thema.Contribution{
+    ID:       "tutorial-note",
+    Template: "contributions/tutorial-note",
+    Order:    10,
+})</code></pre>
+        <p>The slot receives this page's root data, so the Contribution can read <code>.Site.Name</code>. IDs are unique within a Slot. Lower <code>Order</code> renders first; equal values preserve registration order. <code>RemoveContribution(slot, id)</code> removes a registered item and reports whether it existed.</p>
+        <p>Slots are HTML-fragment extension points. They are valid only as direct actions in HTML content—not in attributes, URLs, JavaScript, or CSS.</p>
+    </section>
+
+    <section>
+        <h2>Refresh</h2>
+        <p>The caller decides when to check external Theme resources. Thema starts no watcher, ticker, or background goroutine.</p>
+<pre><code>changed, err := views.Refresh(ctx)</code></pre>
+        <p>An unchanged generation returns <code>false, nil</code>. A changed valid Theme is compiled and activated atomically. Existing renders may finish on the old Snapshot while new renders use the new one. If validation or compilation fails, Refresh returns an error and the last valid Snapshot continues serving requests.</p>
+    </section>
+
+    <section>
+        <h2>Context and failure behavior</h2>
+        <p><code>Render</code> and <code>Refresh</code> accept <code>context.Context</code> and observe cancellation. Refresh calls are serialized while normal renders continue. Render never discovers or recompiles Theme files; it executes into an internal buffer first, so a template execution failure leaves the destination writer unchanged. A failure from the final destination writer can still produce a partial commit, as with any <code>io.Writer</code>.</p>
+    </section>
+</main>
+{{ template "components/footer" . }}

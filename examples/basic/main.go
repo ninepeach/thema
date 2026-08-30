@@ -27,6 +27,7 @@ type PageView struct {
 	Description string
 	CurrentPath string
 	Examples    []Example
+	EscapedText string
 }
 
 type application struct {
@@ -65,10 +66,20 @@ func main() {
 }
 
 func newApplication() (*application, error) {
-	views, err := thema.New("./themes", "basic", thema.WithFuncs(template.FuncMap{
-		"join": strings.Join,
-	}))
+	views, err := thema.New(
+		"./themes",
+		"basic",
+		thema.WithDefaultLocale("en"),
+		thema.WithFuncs(template.FuncMap{"join": strings.Join}),
+	)
 	if err != nil {
+		return nil, err
+	}
+	if err := views.Contribute("page.notice", thema.Contribution{
+		ID:       "tutorial-note",
+		Template: "contributions/tutorial-note",
+		Order:    10,
+	}); err != nil {
 		return nil, err
 	}
 	return &application{
@@ -81,12 +92,13 @@ func (app *application) routes() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", app.home)
 	mux.HandleFunc("GET /templates", app.templates)
-	mux.HandleFunc("GET /data", app.data)
+	mux.HandleFunc("GET /runtime", app.runtime)
+	mux.HandleFunc("GET /reference", app.reference)
 	mux.HandleFunc("GET /health", func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		_, _ = w.Write([]byte("ok\n"))
 	})
-	mux.HandleFunc("GET /assets/", app.serveAsset)
+	mux.Handle("GET /assets/basic/", http.StripPrefix("/assets/basic/", app.assets))
 	return mux
 }
 
@@ -97,17 +109,23 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) templates(w http.ResponseWriter, r *http.Request) {
-	data := newPage("Templates", "/templates")
-	data.Description = "Compose pages and reusable components with native Go template actions."
-	data.Examples = examples[1:]
+	data := newPage("Templates & Data", "/templates")
+	data.Description = "Use typed data, Go template actions, components, helpers, escaping, and assets."
+	data.Examples = examples
+	data.EscapedText = "<html/template> escapes ordinary application strings."
 	app.render(w, r, "pages/templates", data)
 }
 
-func (app *application) data(w http.ResponseWriter, r *http.Request) {
-	data := newPage("Data & Logic", "/data")
-	data.Description = "Use typed application data with familiar Go template control actions."
-	data.Examples = examples
-	app.render(w, r, "pages/data", data)
+func (app *application) runtime(w http.ResponseWriter, r *http.Request) {
+	data := newPage("Runtime Features", "/runtime")
+	data.Description = "Add localization, extension points, atomic refresh, and cancellation without changing template data."
+	app.render(w, r, "pages/runtime", data)
+}
+
+func (app *application) reference(w http.ResponseWriter, r *http.Request) {
+	data := newPage("Core API", "/reference")
+	data.Description = "A compact map of the complete Thema v0.1 public surface and its observable safety contract."
+	app.render(w, r, "pages/reference", data)
 }
 
 func newPage(title, path string) PageView {
@@ -127,12 +145,4 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, name stri
 		log.Printf("render %s: %v", name, err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
-}
-
-func (app *application) serveAsset(w http.ResponseWriter, r *http.Request) {
-	prefix := "/assets/"
-	if strings.HasPrefix(r.URL.Path, "/assets/basic/") {
-		prefix = "/assets/basic/"
-	}
-	http.StripPrefix(prefix, app.assets).ServeHTTP(w, r)
 }
