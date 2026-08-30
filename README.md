@@ -373,17 +373,37 @@ planning, and publishing remain application responsibilities.
 
 ## Examples
 
-- [`examples/basic`](examples/basic): New, Render, root variables, composition,
-  and helpers.
-- [`examples/theme`](examples/theme): active Theme and caller-owned Refresh.
-- [`examples/i18n`](examples/i18n): built-in Translator, locale selection,
-  interpolation, and escaping.
+### Minimal
 
-Run one from the repository root:
+[`examples/minimal`](examples/minimal) is the smallest working browser
+integration. It shows `New`, `Must`, `Render`, native root data, the `asset`
+helper, and application-owned `net/http` routing and static file serving.
 
 ```sh
-go run ./examples/basic
+cd examples/minimal
+go run .
 ```
+
+Open [http://localhost:8080](http://localhost:8080).
+
+### Advanced
+
+[`examples/advanced`](examples/advanced) shows realistic composition with typed
+application ViewModels, native `{{ template }}` and `{{ range }}`, multiple
+pages, components, per-render English and Chinese localization, assets, and an
+HTML-content Slot with an application-registered Contribution.
+
+```sh
+cd examples/advanced
+go run .
+```
+
+Open [http://localhost:8080](http://localhost:8080), then visit `/rooms` or use
+`/?lang=en` and `/?lang=zh`.
+
+Both servers belong only to their examples and use Go's standard `net/http`
+package. Thema itself does not provide routing, middleware, or static file
+serving.
 
 ## Specification
 

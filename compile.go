@@ -93,6 +93,9 @@ func walkTemplateNodes(node parse.Node, visit func(string) error) error {
 	}
 	switch current := node.(type) {
 	case *parse.ListNode:
+		if current == nil {
+			return nil
+		}
 		for _, child := range current.Nodes {
 			if err := walkTemplateNodes(child, visit); err != nil {
 				return err

@@ -1,0 +1,135 @@
+:root {
+    color-scheme: light;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    color: #21302b;
+    background: #f5f7f3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    color: #28614c;
+}
+
+.site-header,
+main,
+footer {
+    width: min(70rem, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+}
+
+.brand {
+    color: #173f31;
+    font-size: 1.15rem;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero {
+    padding: 5rem 0 3rem;
+}
+
+.hero.compact {
+    padding-bottom: 1.5rem;
+}
+
+.hero h1 {
+    max-width: 14ch;
+    margin: 0;
+    color: #173f31;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 1;
+}
+
+.hero p:not(.eyebrow) {
+    max-width: 42rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.eyebrow {
+    color: #b6633b;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.announcement {
+    display: flex;
+    gap: .75rem;
+    margin-bottom: 3rem;
+    padding: 1rem 1.25rem;
+    border-radius: .75rem;
+    background: #e2eee7;
+}
+
+.section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+}
+
+.room-card {
+    display: flex;
+    min-height: 13rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border: 1px solid #d8e0db;
+    border-radius: .9rem;
+    background: #fff;
+}
+
+.room-card h3 {
+    margin-top: 0;
+}
+
+.room-card p,
+footer {
+    color: #5a6862;
+    line-height: 1.6;
+}
+
+footer {
+    padding: 4rem 0 2rem;
+}
+
+@media (max-width: 38rem) {
+    .site-header,
+    .announcement {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    .hero {
+        padding-top: 3rem;
+    }
+}

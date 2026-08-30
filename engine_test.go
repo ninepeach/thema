@@ -54,6 +54,28 @@ func TestAutomaticLogicalTemplateName(t *testing.T) {
 	}
 }
 
+func TestNativeControlActionsWithoutElse(t *testing.T) {
+	repository := newTestTheme(t, map[string]string{
+		"pages/home.html": `{{if .Visible}}{{.Title}}{{end}}{{range .Items}}{{.}}{{end}}{{with .Note}}{{.}}{{end}}`,
+	}, nil, nil)
+	views, err := New(repository, "default")
+	if err != nil {
+		t.Fatal(err)
+	}
+	data := struct {
+		Visible bool
+		Title   string
+		Items   []string
+		Note    string
+	}{
+		Visible: true,
+		Title:   "Rooms:",
+		Items:   []string{" A", " B"},
+		Note:    " ready",
+	}
+	assertRender(t, views, "pages/home", data, "Rooms: A B ready")
+}
+
 func TestRenderCommitsOnlyAfterSuccessfulExecution(t *testing.T) {
 	repository := newTestTheme(t, map[string]string{
 		"pages/home.html": `before{{fail}}after`,

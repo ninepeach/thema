@@ -1,0 +1,24 @@
+{
+  "nav": {
+    "home": "首页",
+    "rooms": "客房"
+  },
+  "home": {
+    "eyebrow": "由简单原语组合的应用",
+    "welcome": "欢迎入住 {{name}}",
+    "intro": "页面、组件、翻译、资源与插槽协同工作。",
+    "featured_rooms": "精选客房"
+  },
+  "rooms": {
+    "eyebrow": "自在入住",
+    "title": "我们的客房",
+    "intro": "使用应用自有 ViewModel 和 Go 原生模板组合进行渲染。"
+  },
+  "announcement": {
+    "title": "季节优惠",
+    "body": "连住两晚即可获赠早餐。"
+  },
+  "footer": {
+    "note": "仅使用 Go 标准 HTTP 库构建的 Thema 真实示例。"
+  }
+}

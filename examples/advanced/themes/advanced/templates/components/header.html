@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="{{ asset "css/app.css" }}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="/">{{ .Title }}</a>
+        <nav aria-label="Primary navigation">
+            <a href="/">{{ t "nav.home" }}</a>
+            <a href="/rooms">{{ t "nav.rooms" }}</a>
+            <a href="?lang=en">EN</a>
+            <a href="?lang=zh">中文</a>
+        </nav>
+    </header>

@@ -194,6 +194,9 @@ func walkContextNodes(node parse.Node, visitPipe func(*parse.PipeNode) error, vi
 	}
 	switch current := node.(type) {
 	case *parse.ListNode:
+		if current == nil {
+			return nil
+		}
 		for _, child := range current.Nodes {
 			if err := walkContextNodes(child, visitPipe, visitTemplate); err != nil {
 				return err
