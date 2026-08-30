@@ -1,0 +1,43 @@
+{{ template "components/header" . }}
+<main>
+    <header class="page-heading">
+        <p class="kicker">Tutorial 2 of 3</p>
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    </header>
+
+    <section>
+        <h2>Standard Go templates</h2>
+        <p>Thema does not introduce a custom template language. Fields are read from the value passed to <code>Render</code>, so <code>.Title</code> and <code>.Site.Name</code> work unchanged.</p>
+<pre><code>&lt;h1&gt;&#123;&#123; .Title &#125;&#125;&lt;/h1&gt;
+&lt;p&gt;&#123;&#123; .Site.Name &#125;&#125;&lt;/p&gt;</code></pre>
+    </section>
+
+    <section>
+        <h2>Template composition</h2>
+        <p>This page uses the same header and footer as the other tutorial pages. Composition is Go's native <code>template</code> action.</p>
+<pre><code>&#123;&#123; template "components/header" . &#125;&#125;
+&lt;main&gt;
+    ...
+&lt;/main&gt;
+&#123;&#123; template "components/footer" . &#125;&#125;</code></pre>
+    </section>
+
+    <section>
+        <h2>Components and context</h2>
+        <p>A component receives the value explicitly passed to it. Inside this range, dot changes from the page to the current example.</p>
+<pre><code>&#123;&#123; range .Examples &#125;&#125;
+    &#123;&#123; template "components/example-card" . &#125;&#125;
+&#123;&#123; end &#125;&#125;</code></pre>
+        <div class="example-list">
+            {{ range .Examples }}
+                <div class="example-entry">
+                    <p class="source">From {{ $.Site.Name }} page data</p>
+                    {{ template "components/example-card" . }}
+                </div>
+            {{ end }}
+        </div>
+        <p>The root variable <code>$</code> still refers to the page data after dot changes, which is why <code>$.Site.Name</code> can render “{{ .Site.Name }}” above each component.</p>
+    </section>
+</main>
+{{ template "components/footer" . }}

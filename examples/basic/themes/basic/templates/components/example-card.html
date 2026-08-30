@@ -1,0 +1,19 @@
+<article class="example-card">
+    <header class="example-heading">
+        <h3>{{ .Name }}</h3>
+        {{ if .Recommended }}
+            <span class="status recommended">Start here</span>
+        {{ else }}
+            <span class="status">Next step</span>
+        {{ end }}
+    </header>
+    {{ with .Description }}
+        <p>{{ . }}</p>
+    {{ end }}
+    <ul class="tags">
+        {{ range .Tags }}
+            <li>{{ . }}</li>
+        {{ end }}
+    </ul>
+    <p class="tag-summary">Topics: {{ join .Tags ", " }}</p>
+</article>

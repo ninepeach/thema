@@ -1,29 +1,58 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/ninepeach/thema"
 )
 
-type Product struct {
+type Site struct {
 	Name        string
 	Description string
-	Price       int
+}
+
+type Example struct {
+	Name        string
+	Description string
+	Recommended bool
+	Tags        []string
 }
 
 type PageView struct {
+	Site        Site
 	Title       string
+	Description string
 	CurrentPath string
-	Products    []Product
+	Examples    []Example
 }
 
 type application struct {
 	views  *thema.Engine
 	assets http.Handler
+}
+
+var examples = []Example{
+	{
+		Name:        "Typed view data",
+		Description: "Render typed Go data with native root-dot access.",
+		Recommended: true,
+		Tags:        []string{"Data", "ViewModel"},
+	},
+	{
+		Name:        "Template composition",
+		Description: "Compose pages with native <html/template> templates.",
+		Recommended: true,
+		Tags:        []string{"template", "components"},
+	},
+	{
+		Name:        "Theme assets",
+		Description: "Reference versioned CSS and other theme assets.",
+		Recommended: false,
+		Tags:        []string{"asset", "CSS"},
+	},
 }
 
 func main() {
@@ -37,7 +66,7 @@ func main() {
 
 func newApplication() (*application, error) {
 	views, err := thema.New("./themes", "basic", thema.WithFuncs(template.FuncMap{
-		"formatPrice": func(price int) string { return fmt.Sprintf("$%d", price) },
+		"join": strings.Join,
 	}))
 	if err != nil {
 		return nil, err
@@ -51,34 +80,45 @@ func newApplication() (*application, error) {
 func (app *application) routes() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", app.home)
-	mux.HandleFunc("GET /about", app.about)
-	mux.HandleFunc("GET /products", app.products)
+	mux.HandleFunc("GET /templates", app.templates)
+	mux.HandleFunc("GET /data", app.data)
 	mux.HandleFunc("GET /health", func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 		_, _ = w.Write([]byte("ok\n"))
 	})
-	mux.Handle("GET /assets/", http.HandlerFunc(app.serveAsset))
+	mux.HandleFunc("GET /assets/", app.serveAsset)
 	return mux
 }
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	app.render(w, r, "pages/home", PageView{Title: "Acme Studio", CurrentPath: "/"})
+	data := newPage("Getting Started", "/")
+	data.Description = "Build and render a small theme with standard Go html/template semantics."
+	app.render(w, r, "pages/home", data)
 }
 
-func (app *application) about(w http.ResponseWriter, r *http.Request) {
-	app.render(w, r, "pages/about", PageView{Title: "About · Acme Studio", CurrentPath: "/about"})
+func (app *application) templates(w http.ResponseWriter, r *http.Request) {
+	data := newPage("Templates", "/templates")
+	data.Description = "Compose pages and reusable components with native Go template actions."
+	data.Examples = examples[1:]
+	app.render(w, r, "pages/templates", data)
 }
 
-func (app *application) products(w http.ResponseWriter, r *http.Request) {
-	app.render(w, r, "pages/products", PageView{
-		Title:       "Products · Acme Studio",
-		CurrentPath: "/products",
-		Products: []Product{
-			{Name: "Starter", Description: "Simple tools for getting started.", Price: 19},
-			{Name: "Team", Description: "Collaboration tools for growing teams.", Price: 49},
-			{Name: "Scale", Description: "More capacity for larger workloads.", Price: 99},
+func (app *application) data(w http.ResponseWriter, r *http.Request) {
+	data := newPage("Data & Logic", "/data")
+	data.Description = "Use typed application data with familiar Go template control actions."
+	data.Examples = examples
+	app.render(w, r, "pages/data", data)
+}
+
+func newPage(title, path string) PageView {
+	return PageView{
+		Site: Site{
+			Name:        "Thema",
+			Description: "A small Go-native theme runtime.",
 		},
-	})
+		Title:       title,
+		CurrentPath: path,
+	}
 }
 
 func (app *application) render(w http.ResponseWriter, r *http.Request, name string, data PageView) {
@@ -91,7 +131,7 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, name stri
 
 func (app *application) serveAsset(w http.ResponseWriter, r *http.Request) {
 	prefix := "/assets/"
-	if len(r.URL.Path) >= len("/assets/basic/") && r.URL.Path[:len("/assets/basic/")] == "/assets/basic/" {
+	if strings.HasPrefix(r.URL.Path, "/assets/basic/") {
 		prefix = "/assets/basic/"
 	}
 	http.StripPrefix(prefix, app.assets).ServeHTTP(w, r)

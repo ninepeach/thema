@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ .Title }}</title>
+    <title>{{ .Title }} · {{ .Site.Name }}</title>
     <link rel="stylesheet" href="{{ asset "css/app.css" }}">
 </head>
 <body>
     <header class="site-header">
-        <a class="brand" href="/">Acme Studio</a>
+        <a class="brand" href="/">{{ .Site.Name }}</a>
         <nav aria-label="Primary navigation">
-            <a href="/"{{ if eq .CurrentPath "/" }} aria-current="page"{{ end }}>Home</a>
-            <a href="/about"{{ if eq .CurrentPath "/about" }} aria-current="page"{{ end }}>About</a>
-            <a href="/products"{{ if eq .CurrentPath "/products" }} aria-current="page"{{ end }}>Products</a>
+            <a href="/"{{ if eq .CurrentPath "/" }} aria-current="page"{{ end }}>Getting Started</a>
+            <a href="/templates"{{ if eq .CurrentPath "/templates" }} aria-current="page"{{ end }}>Templates</a>
+            <a href="/data"{{ if eq .CurrentPath "/data" }} aria-current="page"{{ end }}>Data &amp; Logic</a>
         </nav>
     </header>

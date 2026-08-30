@@ -375,9 +375,10 @@ planning, and publishing remain application responsibilities.
 
 ### Basic
 
-[`examples/basic`](examples/basic) demonstrates the common Thema workflow for a
-new application: `Render`, typed ViewModels, multiple pages, native template
-components, assets, one trusted `FuncMap` helper, and application-owned
+[`examples/basic`](examples/basic) is a runnable getting-started tutorial for
+common day-to-day Thema usage. The tutorial website teaches through its own
+working templates: typed ViewModels, native root-dot data, `if`/`else`, `with`,
+`range`, template composition, assets, one trusted helper, and application-owned
 `net/http` integration.
 
 ```sh
@@ -386,6 +387,12 @@ go run .
 ```
 
 Open [http://localhost:8080](http://localhost:8080).
+
+The three tutorial pages are:
+
+- `/` — Getting Started
+- `/templates` — Templates
+- `/data` — Data & Logic
 
 ### Advanced
 
@@ -403,9 +410,11 @@ go run .
 Open [http://localhost:8080](http://localhost:8080), then visit `/services`,
 `/work`, `/about`, `/contact`, or use `/?lang=en` and `/?lang=zh`.
 
-Both servers belong only to their examples and use Go's standard `net/http`
-package. Thema itself does not provide routing, middleware, or static file
-serving.
+Basic focuses on normal day-to-day usage; Advanced covers Thema-specific
+capabilities such as i18n, Slots, Contributions, and a fuller HTTP server
+lifecycle. Both servers belong only to their examples and use Go's standard
+`net/http` package. Thema itself does not provide routing, middleware, or static
+file serving.
 
 ## Specification
 
