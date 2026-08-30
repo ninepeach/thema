@@ -1,0 +1,11 @@
+{{ template "components/header" . }}
+<main id="main" class="site-main" tabindex="-1">
+    <section class="page-placeholder error-placeholder">
+        <div class="container">
+            <p class="error-code">500</p>
+            <h1>{{ t .Page.Title }}</h1>
+            <a class="text-link" href="/">{{ t "errors.action" }}</a>
+        </div>
+    </section>
+</main>
+{{ template "components/footer" . }}

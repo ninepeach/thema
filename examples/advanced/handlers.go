@@ -3,51 +3,37 @@ package main
 import (
 	"bytes"
 	"net/http"
-	"strings"
 
 	"github.com/ninepeach/thema"
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	locale := requestedLocale(r)
-	data := pageView("/", locale, "site.title", "site.description")
-	data.Services = serviceViews()
-	data.Projects = projectViews()
-	data.Stats = statViews()
-	app.render(w, r, http.StatusOK, "pages/home", data)
+	app.renderPage(w, r, http.StatusOK, "pages/home", "", "pages.home.title")
 }
 
-func (app *application) services(w http.ResponseWriter, r *http.Request) {
-	locale := requestedLocale(r)
-	data := pageView("/services", locale, "services.page_title", "services.intro")
-	data.Services = serviceViews()
-	app.render(w, r, http.StatusOK, "pages/services", data)
+func (app *application) rooms(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/rooms", "rooms", "pages.rooms.title")
 }
 
-func (app *application) work(w http.ResponseWriter, r *http.Request) {
-	locale := requestedLocale(r)
-	data := pageView("/work", locale, "work.page_title", "work.intro")
-	data.Projects = projectViews()
-	data.Stats = statViews()
-	app.render(w, r, http.StatusOK, "pages/work", data)
+func (app *application) room(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/room", "rooms", "pages.room.title")
 }
 
-func (app *application) about(w http.ResponseWriter, r *http.Request) {
-	locale := requestedLocale(r)
-	data := pageView("/about", locale, "about.page_title", "about.intro")
-	data.Stats = statViews()
-	app.render(w, r, http.StatusOK, "pages/about", data)
+func (app *application) amenities(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/amenities", "amenities", "pages.amenities.title")
 }
 
-func (app *application) contact(w http.ResponseWriter, r *http.Request) {
-	locale := requestedLocale(r)
-	data := pageView("/contact", locale, "contact.page_title", "contact.intro")
-	app.render(w, r, http.StatusOK, "pages/contact", data)
+func (app *application) localArea(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/local-area", "local-area", "pages.local_area.title")
+}
+
+func (app *application) gettingHere(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/getting-here", "getting-here", "pages.getting_here.title")
 }
 
 func (app *application) notFound(w http.ResponseWriter, r *http.Request) {
 	locale := requestedLocale(r)
-	data := pageView(r.URL.Path, locale, "errors.not_found.title", "errors.not_found.description")
+	data := pageView(r.URL.Path, "", locale, "errors.not_found.title", "errors.not_found.description")
 	app.render(w, r, http.StatusNotFound, "pages/404", data)
 }
 
@@ -57,14 +43,10 @@ func (app *application) health(w http.ResponseWriter, _ *http.Request) {
 	_, _ = w.Write([]byte("ok\n"))
 }
 
-func (app *application) serveAsset(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Cache-Control", "public, max-age=3600")
-	w.Header().Set("X-Content-Type-Options", "nosniff")
-	prefix := "/assets/"
-	if strings.HasPrefix(r.URL.Path, "/assets/northstar/") {
-		prefix = "/assets/northstar/"
-	}
-	http.StripPrefix(prefix, app.assetFiles).ServeHTTP(w, r)
+func (app *application) renderPage(w http.ResponseWriter, r *http.Request, status int, templateName, activeNav, title string) {
+	locale := requestedLocale(r)
+	data := pageView(r.URL.Path, activeNav, locale, title, "site.description")
+	app.render(w, r, status, templateName, data)
 }
 
 func (app *application) render(w http.ResponseWriter, r *http.Request, status int, name string, data PageView) {
@@ -78,7 +60,7 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, status in
 
 func (app *application) serverError(w http.ResponseWriter, r *http.Request, locale string, renderErr error) {
 	app.logger.Printf("render failed: %v", renderErr)
-	data := pageView(r.URL.Path, locale, "errors.internal.title", "errors.internal.description")
+	data := pageView(r.URL.Path, "", locale, "errors.internal.title", "errors.internal.description")
 	var body bytes.Buffer
 	if err := app.views.Render(r.Context(), &body, "pages/500", data, thema.WithLocale(locale)); err != nil {
 		app.logger.Printf("render themed 500 page: %v", err)

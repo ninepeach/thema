@@ -1,0 +1,39 @@
+    <footer class="site-footer">
+        <div class="footer-main">
+            <div class="container footer-grid">
+                <div class="footer-brand">
+                    <a class="footer-wordmark" href="/">{{ .Site.Name }}</a>
+                    <p>{{ t "footer.description" }}</p>
+                </div>
+
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <h2>{{ t "footer.explore" }}</h2>
+                    <a href="/rooms">{{ t "nav.rooms" }}</a>
+                    <a href="/amenities">{{ t "nav.amenities" }}</a>
+                    <a href="/local-area">{{ t "nav.local_area" }}</a>
+                    <a href="/getting-here">{{ t "nav.getting_here" }}</a>
+                </nav>
+
+                <section class="footer-contact">
+                    <h2>{{ t "footer.contact" }}</h2>
+                    <address>
+                        <span><strong>{{ t "footer.address_label" }}</strong>{{ t "footer.address" }}</span>
+                        <span><strong>{{ t "footer.phone_label" }}</strong><a href="tel:+15550102480">+1 555 010 2480</a></span>
+                        <span><strong>{{ t "footer.email_label" }}</strong><a href="mailto:stay@khotel.example">stay@khotel.example</a></span>
+                    </address>
+                </section>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <p>{{ t "footer.copyright" }}</p>
+                <nav aria-label="Legal and language">
+                    <a href="/privacy">{{ t "footer.privacy" }}</a>
+                    <a href="{{ .CurrentPath }}?lang=en" lang="en">{{ t "shell.english" }}</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

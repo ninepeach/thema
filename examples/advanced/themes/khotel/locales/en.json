@@ -1,0 +1,52 @@
+{
+  "site": {
+    "description": "KHotel accommodation website example."
+  },
+  "shell": {
+    "skip": "Skip to main content",
+    "utility_label": "Utility navigation",
+    "primary_label": "Primary navigation",
+    "mobile_label": "Mobile navigation",
+    "menu": "Menu",
+    "english": "English",
+    "sign_in": "Sign In",
+    "register": "Register",
+    "book_now": "Book Now"
+  },
+  "nav": {
+    "rooms": "Rooms",
+    "amenities": "Amenities",
+    "local_area": "Local Area",
+    "getting_here": "Getting Here"
+  },
+  "pages": {
+    "home": { "title": "Home" },
+    "rooms": { "title": "Rooms" },
+    "room": { "title": "Room" },
+    "amenities": { "title": "Amenities" },
+    "local_area": { "title": "Local Area" },
+    "getting_here": { "title": "Getting Here" }
+  },
+  "footer": {
+    "description": "A comfortable place to stay.",
+    "explore": "Explore",
+    "contact": "Contact",
+    "address_label": "Address",
+    "address": "100 Example Lane, Sampletown",
+    "phone_label": "Phone",
+    "email_label": "Email",
+    "copyright": "© 2026 KHotel",
+    "privacy": "Privacy"
+  },
+  "errors": {
+    "not_found": {
+      "title": "Page not found",
+      "description": "The requested page could not be found."
+    },
+    "internal": {
+      "title": "Something went wrong",
+      "description": "The page could not be displayed."
+    },
+    "action": "Return home"
+  }
+}

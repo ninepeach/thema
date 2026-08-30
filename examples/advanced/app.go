@@ -14,20 +14,13 @@ type application struct {
 }
 
 func newApplication() (*application, error) {
-	views, err := thema.New("./themes", "northstar")
+	views, err := thema.New("./themes", "khotel")
 	if err != nil {
-		return nil, err
-	}
-	if err := views.Contribute("home.announcement", thema.Contribution{
-		ID:       "project-availability",
-		Template: "contributions/announcement",
-		Order:    10,
-	}); err != nil {
 		return nil, err
 	}
 	return &application{
 		views:      views,
-		assetFiles: http.FileServer(http.Dir("./themes/northstar/assets")),
+		assetFiles: http.FileServer(http.Dir("./themes/khotel/assets")),
 		logger:     log.Default(),
 	}, nil
 }
@@ -35,12 +28,21 @@ func newApplication() (*application, error) {
 func (app *application) routes() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", app.home)
-	mux.HandleFunc("GET /services", app.services)
-	mux.HandleFunc("GET /work", app.work)
-	mux.HandleFunc("GET /about", app.about)
-	mux.HandleFunc("GET /contact", app.contact)
+	mux.HandleFunc("GET /rooms", app.rooms)
+	mux.HandleFunc("GET /rooms/{slug}", app.room)
+	mux.HandleFunc("GET /amenities", app.amenities)
+	mux.HandleFunc("GET /local-area", app.localArea)
+	mux.HandleFunc("GET /getting-here", app.gettingHere)
 	mux.HandleFunc("GET /health", app.health)
-	mux.HandleFunc("GET /assets/", app.serveAsset)
+	mux.Handle("GET /assets/khotel/", http.StripPrefix("/assets/khotel/", app.assetHandler()))
 	mux.HandleFunc("GET /", app.notFound)
 	return mux
+}
+
+func (app *application) assetHandler() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "public, max-age=3600")
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		app.assetFiles.ServeHTTP(w, r)
+	})
 }

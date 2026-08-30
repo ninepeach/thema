@@ -1,0 +1,52 @@
+{
+  "site": {
+    "description": "KHotel 住宿网站示例。"
+  },
+  "shell": {
+    "skip": "跳到主要内容",
+    "utility_label": "实用导航",
+    "primary_label": "主导航",
+    "mobile_label": "移动导航",
+    "menu": "菜单",
+    "english": "English",
+    "sign_in": "登录",
+    "register": "注册",
+    "book_now": "立即预订"
+  },
+  "nav": {
+    "rooms": "客房",
+    "amenities": "设施",
+    "local_area": "周边",
+    "getting_here": "交通"
+  },
+  "pages": {
+    "home": { "title": "首页" },
+    "rooms": { "title": "客房" },
+    "room": { "title": "客房" },
+    "amenities": { "title": "设施" },
+    "local_area": { "title": "周边" },
+    "getting_here": { "title": "交通" }
+  },
+  "footer": {
+    "description": "一个舒适的住宿之处。",
+    "explore": "浏览",
+    "contact": "联系",
+    "address_label": "地址",
+    "address": "示例镇示例路 100 号",
+    "phone_label": "电话",
+    "email_label": "邮箱",
+    "copyright": "© 2026 KHotel",
+    "privacy": "隐私"
+  },
+  "errors": {
+    "not_found": {
+      "title": "页面未找到",
+      "description": "找不到请求的页面。"
+    },
+    "internal": {
+      "title": "出现问题",
+      "description": "暂时无法显示此页面。"
+    },
+    "action": "返回首页"
+  }
+}
