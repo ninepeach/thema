@@ -1,0 +1,12 @@
+<button class="webchat-launcher" type="button" popovertarget="webchat-panel" aria-label="{{ t "webchat.open" }}">
+    <span class="webchat-icon" aria-hidden="true"></span>
+    <span>{{ t "webchat.launcher" }}</span>
+</button>
+
+<aside class="webchat-panel" id="webchat-panel" popover aria-label="{{ t "webchat.label" }}">
+    <div class="webchat-heading">
+        <strong>KHotel</strong>
+        <button type="button" popovertarget="webchat-panel" popovertargetaction="hide" aria-label="{{ t "webchat.close" }}">×</button>
+    </div>
+    <p>{{ t "webchat.greeting" }}</p>
+</aside>

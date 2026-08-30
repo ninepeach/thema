@@ -1,0 +1,15 @@
+{{ if .Breadcrumbs }}
+<nav class="breadcrumb" aria-label="{{ t "accessibility.breadcrumb" }}">
+    <ol class="container breadcrumb-list">
+        {{ range .Breadcrumbs }}
+            <li>
+                {{ if .Current }}
+                    <span aria-current="page">{{ t .Label }}</span>
+                {{ else }}
+                    <a href="{{ .URL }}">{{ t .Label }}</a>
+                {{ end }}
+            </li>
+        {{ end }}
+    </ol>
+</nav>
+{{ end }}

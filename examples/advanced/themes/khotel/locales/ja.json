@@ -1,0 +1,66 @@
+{
+  "site": {
+    "description": "KHotelの宿泊施設ウェブサイト例。"
+  },
+  "accessibility": {
+    "skip_to_main": "メインコンテンツへ移動",
+    "home_link": "KHotel ホーム",
+    "primary_navigation": "メインナビゲーション",
+    "mobile_navigation": "モバイルナビゲーション",
+    "language_selection": "言語を選択",
+    "menu": "メニュー",
+    "breadcrumb": "パンくずリスト"
+  },
+  "utility": {
+    "chat_with_us": "チャットで相談",
+    "my_stays": "予約確認"
+  },
+  "nav": {
+    "home": "ホーム",
+    "rooms": "客室",
+    "amenities": "館内設備",
+    "local_area": "周辺情報",
+    "getting_here": "アクセス",
+    "book_now": "予約する"
+  },
+  "pages": {
+    "home": { "title": "ホーム" },
+    "rooms": { "title": "客室" },
+    "room": { "title": "客室" },
+    "amenities": { "title": "館内設備" },
+    "local_area": { "title": "周辺情報" },
+    "getting_here": { "title": "アクセス" },
+    "my_stays": { "title": "予約確認" },
+    "stay_information": { "title": "ご宿泊案内" },
+    "cancellation_policy": { "title": "キャンセルポリシー" },
+    "privacy": { "title": "プライバシー" }
+  },
+  "webchat": {
+    "open": "KHotel WebChatを開く",
+    "launcher": "チャット",
+    "label": "KHotel WebChat",
+    "close": "WebChatを閉じる",
+    "greeting": "どのようなご用件でしょうか？"
+  },
+  "footer": {
+    "description": "心地よく過ごせる宿。",
+    "social_media": "ソーシャルメディア",
+    "stay_information": "ご宿泊案内",
+    "guest_information": "ご利用案内",
+    "cancellation_policy": "キャンセルポリシー",
+    "privacy": "プライバシー",
+    "machine_translation_notice": "このウェブサイトの一部のコンテンツは機械翻訳されている場合があります。",
+    "copyright": "© 2026 KHotel. 無断転載を禁じます。"
+  },
+  "errors": {
+    "not_found": {
+      "title": "ページが見つかりません",
+      "description": "お探しのページは見つかりませんでした。"
+    },
+    "internal": {
+      "title": "問題が発生しました",
+      "description": "ページを表示できませんでした。"
+    },
+    "action": "ホームへ戻る"
+  }
+}

@@ -1,37 +1,41 @@
+    {{ template "components/webchat" . }}
     <footer class="site-footer">
-        <div class="footer-main">
-            <div class="container footer-grid">
+        <div class="container footer-inner">
+            <div class="footer-main">
                 <div class="footer-brand">
-                    <a class="footer-wordmark" href="/">{{ .Site.Name }}</a>
+                    <a class="footer-wordmark" href="/{{ .LocaleQuery }}">{{ .Site.Name }}</a>
                     <p>{{ t "footer.description" }}</p>
                 </div>
 
-                <nav class="footer-nav" aria-label="Footer navigation">
-                    <h2>{{ t "footer.explore" }}</h2>
-                    <a href="/rooms">{{ t "nav.rooms" }}</a>
-                    <a href="/amenities">{{ t "nav.amenities" }}</a>
-                    <a href="/local-area">{{ t "nav.local_area" }}</a>
-                    <a href="/getting-here">{{ t "nav.getting_here" }}</a>
-                </nav>
+                <div class="footer-columns">
+                    <nav class="footer-group" aria-label="{{ t "footer.social_media" }}">
+                        <h2>{{ t "footer.social_media" }}</h2>
+                        <a href="#">Instagram</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">LINE</a>
+                    </nav>
 
-                <section class="footer-contact">
-                    <h2>{{ t "footer.contact" }}</h2>
-                    <address>
-                        <span><strong>{{ t "footer.address_label" }}</strong>{{ t "footer.address" }}</span>
-                        <span><strong>{{ t "footer.phone_label" }}</strong><a href="tel:+15550102480">+1 555 010 2480</a></span>
-                        <span><strong>{{ t "footer.email_label" }}</strong><a href="mailto:stay@khotel.example">stay@khotel.example</a></span>
-                    </address>
-                </section>
+                    <nav class="footer-group" aria-label="KHotel">
+                        <h2>KHotel</h2>
+                        <a href="/rooms{{ .LocaleQuery }}">{{ t "nav.rooms" }}</a>
+                        <a href="/amenities{{ .LocaleQuery }}">{{ t "nav.amenities" }}</a>
+                        <a href="/local-area{{ .LocaleQuery }}">{{ t "nav.local_area" }}</a>
+                        <a href="/getting-here{{ .LocaleQuery }}">{{ t "nav.getting_here" }}</a>
+                        <a href="/my-stays{{ .LocaleQuery }}">{{ t "utility.my_stays" }}</a>
+                    </nav>
+
+                    <nav class="footer-group" aria-label="{{ t "footer.stay_information" }}">
+                        <h2>{{ t "footer.stay_information" }}</h2>
+                        <a href="/stay-information{{ .LocaleQuery }}">{{ t "footer.guest_information" }}</a>
+                        <a href="/cancellation-policy{{ .LocaleQuery }}">{{ t "footer.cancellation_policy" }}</a>
+                        <a href="/privacy{{ .LocaleQuery }}">{{ t "footer.privacy" }}</a>
+                    </nav>
+                </div>
             </div>
-        </div>
 
-        <div class="footer-bottom">
-            <div class="container footer-bottom-inner">
-                <p>{{ t "footer.copyright" }}</p>
-                <nav aria-label="Legal and language">
-                    <a href="/privacy">{{ t "footer.privacy" }}</a>
-                    <a href="{{ .CurrentPath }}?lang=en" lang="en">{{ t "shell.english" }}</a>
-                </nav>
+            <div class="footer-bottom">
+                <p class="translation-notice">{{ t "footer.machine_translation_notice" }}</p>
+                <p class="copyright">{{ t "footer.copyright" }}</p>
             </div>
         </div>
     </footer>

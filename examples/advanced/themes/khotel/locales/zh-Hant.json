@@ -1,0 +1,66 @@
+{
+  "site": {
+    "description": "KHotel 住宿網站範例。"
+  },
+  "accessibility": {
+    "skip_to_main": "跳至主要內容",
+    "home_link": "KHotel 首頁",
+    "primary_navigation": "主要導覽",
+    "mobile_navigation": "行動版導覽",
+    "language_selection": "選擇語言",
+    "menu": "選單",
+    "breadcrumb": "麵包屑導覽"
+  },
+  "utility": {
+    "chat_with_us": "與我們聊天",
+    "my_stays": "我的預訂"
+  },
+  "nav": {
+    "home": "首頁",
+    "rooms": "客房",
+    "amenities": "設施",
+    "local_area": "周邊",
+    "getting_here": "交通方式",
+    "book_now": "立即預訂"
+  },
+  "pages": {
+    "home": { "title": "首頁" },
+    "rooms": { "title": "客房" },
+    "room": { "title": "客房" },
+    "amenities": { "title": "設施" },
+    "local_area": { "title": "周邊" },
+    "getting_here": { "title": "交通方式" },
+    "my_stays": { "title": "我的預訂" },
+    "stay_information": { "title": "入住須知" },
+    "cancellation_policy": { "title": "取消政策" },
+    "privacy": { "title": "隱私權" }
+  },
+  "webchat": {
+    "open": "開啟 KHotel WebChat",
+    "launcher": "聊天",
+    "label": "KHotel WebChat",
+    "close": "關閉 WebChat",
+    "greeting": "我們可以如何協助您？"
+  },
+  "footer": {
+    "description": "舒適自在的住宿之所。",
+    "social_media": "社群媒體",
+    "stay_information": "入住須知",
+    "guest_information": "旅客須知",
+    "cancellation_policy": "取消政策",
+    "privacy": "隱私權",
+    "machine_translation_notice": "此網站的部分內容可能由機器翻譯。",
+    "copyright": "© 2026 KHotel。保留所有權利。"
+  },
+  "errors": {
+    "not_found": {
+      "title": "找不到頁面",
+      "description": "找不到您要求的頁面。"
+    },
+    "internal": {
+      "title": "發生問題",
+      "description": "目前無法顯示此頁面。"
+    },
+    "action": "返回首頁"
+  }
+}

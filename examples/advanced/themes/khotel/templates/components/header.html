@@ -8,41 +8,54 @@
     <link rel="stylesheet" href="{{ asset "css/app.css" }}">
 </head>
 <body>
-    <a class="skip-link" href="#main">{{ t "shell.skip" }}</a>
+    <a class="skip-link" href="#main">{{ t "accessibility.skip_to_main" }}</a>
     <header class="site-header">
         <div class="utility-bar">
             <div class="container utility-inner">
-                <nav class="utility-nav" aria-label="{{ t "shell.utility_label" }}">
-                    <a href="{{ .CurrentPath }}?lang=en" lang="en">{{ t "shell.english" }}</a>
-                    <a href="/sign-in">{{ t "shell.sign_in" }}</a>
-                    <a class="utility-register" href="/register">{{ t "shell.register" }}</a>
-                </nav>
+                <button class="utility-chat" type="button" popovertarget="webchat-panel">
+                    {{ t "utility.chat_with_us" }}
+                </button>
+
+                <div class="utility-actions">
+                    <a href="/my-stays{{ .LocaleQuery }}">{{ t "utility.my_stays" }}</a>
+                    <details class="language-menu">
+                        <summary>
+                            <span class="visually-hidden">{{ t "accessibility.language_selection" }}: </span>
+                            <span>{{ .Language.Name }}</span>
+                        </summary>
+                        <nav class="language-options" aria-label="{{ t "accessibility.language_selection" }}">
+                            {{ range .Languages }}
+                                <a href="{{ .URL }}" lang="{{ .Code }}"{{ if .Current }} aria-current="true"{{ end }}>{{ .Name }}</a>
+                            {{ end }}
+                        </nav>
+                    </details>
+                </div>
             </div>
         </div>
 
         <div class="primary-header">
             <div class="container primary-inner">
-                <a class="brand" href="/" aria-label="KHotel home">{{ .Site.Name }}</a>
+                <a class="brand" href="/{{ .LocaleQuery }}" aria-label="{{ t "accessibility.home_link" }}">{{ .Site.Name }}</a>
 
-                <nav class="primary-nav" aria-label="{{ t "shell.primary_label" }}">
-                    <a href="/rooms"{{ if eq .ActiveNav "rooms" }} aria-current="page"{{ end }}>{{ t "nav.rooms" }}</a>
-                    <a href="/amenities"{{ if eq .ActiveNav "amenities" }} aria-current="page"{{ end }}>{{ t "nav.amenities" }}</a>
-                    <a href="/local-area"{{ if eq .ActiveNav "local-area" }} aria-current="page"{{ end }}>{{ t "nav.local_area" }}</a>
-                    <a href="/getting-here"{{ if eq .ActiveNav "getting-here" }} aria-current="page"{{ end }}>{{ t "nav.getting_here" }}</a>
+                <nav class="primary-nav" aria-label="{{ t "accessibility.primary_navigation" }}">
+                    <a href="/rooms{{ .LocaleQuery }}"{{ if eq .ActiveNav "rooms" }} aria-current="page"{{ end }}>{{ t "nav.rooms" }}</a>
+                    <a href="/amenities{{ .LocaleQuery }}"{{ if eq .ActiveNav "amenities" }} aria-current="page"{{ end }}>{{ t "nav.amenities" }}</a>
+                    <a href="/local-area{{ .LocaleQuery }}"{{ if eq .ActiveNav "local-area" }} aria-current="page"{{ end }}>{{ t "nav.local_area" }}</a>
+                    <a href="/getting-here{{ .LocaleQuery }}"{{ if eq .ActiveNav "getting-here" }} aria-current="page"{{ end }}>{{ t "nav.getting_here" }}</a>
                 </nav>
 
-                <a class="booking-action" href="/booking">{{ t "shell.book_now" }}</a>
+                <a class="booking-action" href="/booking{{ .LocaleQuery }}">{{ t "nav.book_now" }}</a>
 
                 <details class="mobile-menu">
-                    <summary>{{ t "shell.menu" }}</summary>
-                    <nav class="mobile-panel" aria-label="{{ t "shell.mobile_label" }}">
+                    <summary>{{ t "accessibility.menu" }}</summary>
+                    <nav class="mobile-panel" aria-label="{{ t "accessibility.mobile_navigation" }}">
                         <div class="container mobile-links">
-                            <a href="/rooms"{{ if eq .ActiveNav "rooms" }} aria-current="page"{{ end }}>{{ t "nav.rooms" }}</a>
-                            <a href="/amenities"{{ if eq .ActiveNav "amenities" }} aria-current="page"{{ end }}>{{ t "nav.amenities" }}</a>
-                            <a href="/local-area"{{ if eq .ActiveNav "local-area" }} aria-current="page"{{ end }}>{{ t "nav.local_area" }}</a>
-                            <a href="/getting-here"{{ if eq .ActiveNav "getting-here" }} aria-current="page"{{ end }}>{{ t "nav.getting_here" }}</a>
-                            <a class="mobile-booking" href="/booking">{{ t "shell.book_now" }}</a>
-                            <a class="mobile-register" href="/register">{{ t "shell.register" }}</a>
+                            <a href="/rooms{{ .LocaleQuery }}"{{ if eq .ActiveNav "rooms" }} aria-current="page"{{ end }}>{{ t "nav.rooms" }}</a>
+                            <a href="/amenities{{ .LocaleQuery }}"{{ if eq .ActiveNav "amenities" }} aria-current="page"{{ end }}>{{ t "nav.amenities" }}</a>
+                            <a href="/local-area{{ .LocaleQuery }}"{{ if eq .ActiveNav "local-area" }} aria-current="page"{{ end }}>{{ t "nav.local_area" }}</a>
+                            <a href="/getting-here{{ .LocaleQuery }}"{{ if eq .ActiveNav "getting-here" }} aria-current="page"{{ end }}>{{ t "nav.getting_here" }}</a>
+                            <a href="/my-stays{{ .LocaleQuery }}">{{ t "utility.my_stays" }}</a>
+                            <a class="mobile-booking" href="/booking{{ .LocaleQuery }}">{{ t "nav.book_now" }}</a>
                         </div>
                     </nav>
                 </details>

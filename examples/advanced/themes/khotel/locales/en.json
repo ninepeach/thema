@@ -2,22 +2,26 @@
   "site": {
     "description": "KHotel accommodation website example."
   },
-  "shell": {
-    "skip": "Skip to main content",
-    "utility_label": "Utility navigation",
-    "primary_label": "Primary navigation",
-    "mobile_label": "Mobile navigation",
+  "accessibility": {
+    "skip_to_main": "Skip to main content",
+    "home_link": "KHotel home",
+    "primary_navigation": "Primary navigation",
+    "mobile_navigation": "Mobile navigation",
+    "language_selection": "Language selection",
     "menu": "Menu",
-    "english": "English",
-    "sign_in": "Sign In",
-    "register": "Register",
-    "book_now": "Book Now"
+    "breadcrumb": "Breadcrumb"
+  },
+  "utility": {
+    "chat_with_us": "Chat with us",
+    "my_stays": "My Stays"
   },
   "nav": {
+    "home": "Home",
     "rooms": "Rooms",
     "amenities": "Amenities",
     "local_area": "Local Area",
-    "getting_here": "Getting Here"
+    "getting_here": "Getting Here",
+    "book_now": "Book Now"
   },
   "pages": {
     "home": { "title": "Home" },
@@ -25,18 +29,28 @@
     "room": { "title": "Room" },
     "amenities": { "title": "Amenities" },
     "local_area": { "title": "Local Area" },
-    "getting_here": { "title": "Getting Here" }
+    "getting_here": { "title": "Getting Here" },
+    "my_stays": { "title": "My Stays" },
+    "stay_information": { "title": "Stay Information" },
+    "cancellation_policy": { "title": "Cancellation Policy" },
+    "privacy": { "title": "Privacy" }
+  },
+  "webchat": {
+    "open": "Open KHotel WebChat",
+    "launcher": "Chat",
+    "label": "KHotel WebChat",
+    "close": "Close WebChat",
+    "greeting": "How can we help?"
   },
   "footer": {
     "description": "A comfortable place to stay.",
-    "explore": "Explore",
-    "contact": "Contact",
-    "address_label": "Address",
-    "address": "100 Example Lane, Sampletown",
-    "phone_label": "Phone",
-    "email_label": "Email",
-    "copyright": "© 2026 KHotel",
-    "privacy": "Privacy"
+    "social_media": "Social Media",
+    "stay_information": "Stay Information",
+    "guest_information": "Guest Information",
+    "cancellation_policy": "Cancellation Policy",
+    "privacy": "Privacy",
+    "machine_translation_notice": "Some content on this website may be machine translated.",
+    "copyright": "© 2026 KHotel. All rights reserved."
   },
   "errors": {
     "not_found": {

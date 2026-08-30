@@ -31,6 +31,22 @@ func (app *application) gettingHere(w http.ResponseWriter, r *http.Request) {
 	app.renderPage(w, r, http.StatusOK, "pages/getting-here", "getting-here", "pages.getting_here.title")
 }
 
+func (app *application) myStays(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/my-stays", "", "pages.my_stays.title")
+}
+
+func (app *application) stayInformation(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/stay-information", "", "pages.stay_information.title")
+}
+
+func (app *application) cancellationPolicy(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/cancellation-policy", "", "pages.cancellation_policy.title")
+}
+
+func (app *application) privacy(w http.ResponseWriter, r *http.Request) {
+	app.renderPage(w, r, http.StatusOK, "pages/privacy", "", "pages.privacy.title")
+}
+
 func (app *application) notFound(w http.ResponseWriter, r *http.Request) {
 	locale := requestedLocale(r)
 	data := pageView(r.URL.Path, "", locale, "errors.not_found.title", "errors.not_found.description")
@@ -79,8 +95,10 @@ func writeHTML(w http.ResponseWriter, status int, body []byte) {
 }
 
 func requestedLocale(r *http.Request) string {
-	if r.URL.Query().Get("lang") == "zh" {
-		return "zh"
+	switch locale := r.URL.Query().Get("lang"); locale {
+	case "en", "ja", "zh-Hant", "zh-Hans":
+		return locale
+	default:
+		return "en"
 	}
-	return "en"
 }
