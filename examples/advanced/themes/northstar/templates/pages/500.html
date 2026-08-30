@@ -1,0 +1,8 @@
+{{ template "components/header" . }}
+<main class="error-page">
+    <p class="error-code">500</p>
+    <h1>{{ t "errors.internal.title" }}</h1>
+    <p>{{ t "errors.internal.description" }}</p>
+    <a class="button primary" href="/">{{ t "errors.action" }}</a>
+</main>
+{{ template "components/footer" . }}

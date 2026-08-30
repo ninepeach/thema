@@ -373,14 +373,15 @@ planning, and publishing remain application responsibilities.
 
 ## Examples
 
-### Minimal
+### Basic
 
-[`examples/minimal`](examples/minimal) is the smallest working browser
-integration. It shows `New`, `Must`, `Render`, native root data, the `asset`
-helper, and application-owned `net/http` routing and static file serving.
+[`examples/basic`](examples/basic) demonstrates the common Thema workflow for a
+new application: `Render`, typed ViewModels, multiple pages, native template
+components, assets, one trusted `FuncMap` helper, and application-owned
+`net/http` integration.
 
 ```sh
-cd examples/minimal
+cd examples/basic
 go run .
 ```
 
@@ -388,18 +389,19 @@ Open [http://localhost:8080](http://localhost:8080).
 
 ### Advanced
 
-[`examples/advanced`](examples/advanced) shows realistic composition with typed
-application ViewModels, native `{{ template }}` and `{{ range }}`, multiple
-pages, components, per-render English and Chinese localization, assets, and an
-HTML-content Slot with an application-registered Contribution.
+[`examples/advanced`](examples/advanced) is a realistic Northstar software
+company website. It demonstrates multiple pages, typed ViewModels, native
+template composition, English and Chinese i18n, CSS and image assets, Slots and
+Contributions, themed 404/500 pages, explicit HTTP server timeouts, graceful
+shutdown, and a small application structure.
 
 ```sh
 cd examples/advanced
 go run .
 ```
 
-Open [http://localhost:8080](http://localhost:8080), then visit `/rooms` or use
-`/?lang=en` and `/?lang=zh`.
+Open [http://localhost:8080](http://localhost:8080), then visit `/services`,
+`/work`, `/about`, `/contact`, or use `/?lang=en` and `/?lang=zh`.
 
 Both servers belong only to their examples and use Go's standard `net/http`
 package. Thema itself does not provide routing, middleware, or static file

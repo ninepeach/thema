@@ -1,0 +1,116 @@
+{
+  "site": {
+    "title": "Northstar",
+    "description": "Product engineering and cloud infrastructure for teams building what's next."
+  },
+  "nav": {
+    "label": "Primary navigation",
+    "home": "Home",
+    "services": "Services",
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact",
+    "language": "Language"
+  },
+  "hero": {
+    "eyebrow": "Independent product and platform studio",
+    "title": "Build better digital products.",
+    "description": "Product engineering and cloud infrastructure for teams building what's next.",
+    "primary": "Start a project",
+    "secondary": "See our work"
+  },
+  "services": {
+    "eyebrow": "What we do",
+    "title": "Practical expertise from idea to operation.",
+    "page_title": "Services built around useful outcomes.",
+    "intro": "We help teams design, build, and operate dependable digital products without unnecessary complexity.",
+    "view_all": "Explore services",
+    "product": {
+      "title": "Product Engineering",
+      "description": "Focused product design and software engineering from first release through steady growth."
+    },
+    "cloud": {
+      "title": "Cloud Infrastructure",
+      "description": "Reliable platforms, delivery pipelines, and observability that make operations calmer."
+    },
+    "modernization": {
+      "title": "Platform Modernization",
+      "description": "Incremental improvements that simplify legacy systems while keeping the business moving."
+    }
+  },
+  "work": {
+    "eyebrow": "Selected work",
+    "selected": "Systems made clearer, faster, and more dependable.",
+    "page_title": "Work that performs beyond launch.",
+    "intro": "A selection of platforms built to solve practical operating and growth challenges.",
+    "view_all": "View our work",
+    "atlas": {
+      "category": "Commerce Infrastructure",
+      "description": "Reliable transaction platform designed for sustained growth.",
+      "result": "99.99% availability"
+    },
+    "orbit": {
+      "category": "Operations Platform",
+      "description": "Simplified internal workflows across distributed teams.",
+      "result": "40% faster workflows"
+    }
+  },
+  "stats": {
+    "label": "Northstar in numbers",
+    "projects": "Projects shipped",
+    "clients": "Long-term clients",
+    "years": "Years building"
+  },
+  "about": {
+    "eyebrow": "About Northstar",
+    "page_title": "Who we are",
+    "intro": "Northstar is a small senior team that works closely with product leaders to turn difficult technical work into dependable products.",
+    "how": {
+      "eyebrow": "How we work",
+      "title": "Clear decisions. Useful software. Durable results.",
+      "simple": {
+        "title": "Stay simple",
+        "description": "Choose the smallest approach that solves the real problem."
+      },
+      "thoughtful": {
+        "title": "Ship thoughtfully",
+        "description": "Move with purpose, test assumptions, and leave systems easier to operate."
+      },
+      "long_term": {
+        "title": "Build for the long term",
+        "description": "Make choices that continue to work as products and teams evolve."
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "page_title": "Start a conversation",
+    "intro": "Tell us what you are building, where you are stuck, and what a useful outcome looks like.",
+    "response": "We usually reply within two business days."
+  },
+  "cta": {
+    "eyebrow": "Let's work together",
+    "title": "Have something to build?",
+    "description": "Bring us the challenge. We will help make the next step clear.",
+    "action": "Start a conversation"
+  },
+  "footer": {
+    "description": "Digital products and platforms, built with care.",
+    "copyright": "© Northstar. Built as an advanced Thema example."
+  },
+  "errors": {
+    "not_found": {
+      "title": "Page not found",
+      "description": "The page you requested does not exist or has moved."
+    },
+    "internal": {
+      "title": "Something went wrong",
+      "description": "We could not render this page. Please try again shortly."
+    },
+    "action": "Return home"
+  },
+  "announcement": {
+    "message": "We are accepting new projects this quarter.",
+    "action": "Start a conversation"
+  }
+}

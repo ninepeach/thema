@@ -1,0 +1,9 @@
+<article class="project-card">
+    <img src="{{ asset .Image }}" alt="{{ .Name }}">
+    <div class="project-copy">
+        <p class="eyebrow">{{ t .Category }}</p>
+        <h3>{{ .Name }}</h3>
+        <p>{{ t .Description }}</p>
+        <strong>{{ t .Result }}</strong>
+    </div>
+</article>

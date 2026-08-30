@@ -1,0 +1,114 @@
+:root {
+    color-scheme: light;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    color: #1f2937;
+    background: #f7f8fa;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: #3157c8; }
+
+.site-header,
+main,
+footer {
+    width: min(64rem, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+}
+
+.brand {
+    color: #172033;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+nav { display: flex; gap: 1.25rem; }
+nav a { color: #596273; text-decoration: none; }
+nav a[aria-current="page"] { color: #3157c8; font-weight: 700; }
+
+.hero,
+.page-intro { padding: 5rem 0 3rem; }
+
+.hero h1,
+.page-intro h1 {
+    max-width: 15ch;
+    margin: 0;
+    color: #172033;
+    font-size: clamp(2.5rem, 7vw, 4.75rem);
+    line-height: 1.04;
+}
+
+.hero > p:not(.eyebrow),
+.page-intro > p:not(.eyebrow) {
+    max-width: 39rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.eyebrow {
+    color: #3157c8;
+    font-weight: 750;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.button {
+    display: inline-block;
+    margin-top: .75rem;
+    padding: .8rem 1.1rem;
+    border-radius: .6rem;
+    color: #fff;
+    background: #3157c8;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+}
+
+.product-card {
+    display: flex;
+    min-height: 14rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border: 1px solid #dde2ea;
+    border-radius: .85rem;
+    background: #fff;
+}
+
+.product-card h2 { margin-top: 0; }
+.product-card p { color: #626b7a; line-height: 1.6; }
+.product-card strong { color: #3157c8; font-size: 1.5rem; }
+
+.principles {
+    display: grid;
+    max-width: 42rem;
+    gap: .75rem;
+    padding: 0;
+    list-style: none;
+}
+
+.principles li {
+    padding: 1rem 1.25rem;
+    border: 1px solid #dde2ea;
+    border-radius: .65rem;
+    background: #fff;
+}
+
+footer { padding: 5rem 0 2rem; color: #707887; }
+
+@media (max-width: 34rem) {
+    .site-header { align-items: flex-start; flex-direction: column; gap: 1rem; }
+    .hero, .page-intro { padding-top: 3rem; }
+}

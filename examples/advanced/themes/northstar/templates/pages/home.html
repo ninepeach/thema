@@ -1,0 +1,54 @@
+{{ template "components/header" . }}
+<main>
+    {{ slot "home.announcement" . }}
+    {{ template "components/hero" . }}
+
+    <section class="section">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">{{ t "services.eyebrow" }}</p>
+                <h2>{{ t "services.title" }}</h2>
+            </div>
+            <a href="/services">{{ t "services.view_all" }}</a>
+        </div>
+        <div class="service-grid">
+            {{ range .Services }}
+                {{ template "components/service-card" . }}
+            {{ end }}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">{{ t "work.eyebrow" }}</p>
+                <h2>{{ t "work.selected" }}</h2>
+            </div>
+            <a href="/work">{{ t "work.view_all" }}</a>
+        </div>
+        <div class="project-grid">
+            {{ range .Projects }}
+                {{ template "components/project-card" . }}
+            {{ end }}
+        </div>
+    </section>
+
+    <section class="stats" aria-label="{{ t "stats.label" }}">
+        {{ range .Stats }}
+            {{ template "components/stat" . }}
+        {{ end }}
+    </section>
+
+    <section class="section approach">
+        <p class="eyebrow">{{ t "about.how.eyebrow" }}</p>
+        <h2>{{ t "about.how.title" }}</h2>
+        <div class="approach-grid">
+            <article><h3>{{ t "about.how.simple.title" }}</h3><p>{{ t "about.how.simple.description" }}</p></article>
+            <article><h3>{{ t "about.how.thoughtful.title" }}</h3><p>{{ t "about.how.thoughtful.description" }}</p></article>
+            <article><h3>{{ t "about.how.long_term.title" }}</h3><p>{{ t "about.how.long_term.description" }}</p></article>
+        </div>
+    </section>
+
+    {{ template "components/cta" . }}
+</main>
+{{ template "components/footer" . }}
