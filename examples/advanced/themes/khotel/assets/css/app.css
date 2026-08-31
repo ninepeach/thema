@@ -12,8 +12,8 @@
     --color-chat-hover: #b92f08;
     --color-footer: #f5f3ee;
     --color-focus: #b84d16;
-    --container-width: 90rem;
-    --gutter: 3rem;
+    --container-width: 80rem;
+    --gutter: 2rem;
     color: var(--color-text);
     background: var(--color-bg);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -633,9 +633,21 @@ main:focus-visible {
     font-size: .8125rem;
 }
 
-@media (max-width: 64rem) {
+@media (max-width: 89.9375rem) {
+    :root {
+        --gutter: 2.5rem;
+    }
+}
+
+@media (max-width: 63.9375rem) {
     :root {
         --gutter: 2rem;
+    }
+}
+
+@media (max-width: 47.9375rem) {
+    :root {
+        --gutter: 1.25rem;
     }
 }
 
@@ -726,10 +738,6 @@ main:focus-visible {
 }
 
 @media (max-width: 40rem) {
-    :root {
-        --gutter: 1.25rem;
-    }
-
     .footer-columns {
         grid-template-columns: 1fr;
         gap: 2.5rem;
