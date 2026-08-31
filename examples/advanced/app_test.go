@@ -343,6 +343,15 @@ func TestGeneratedAssetIsServed(t *testing.T) {
 			t.Errorf("CSS does not contain %s", selector)
 		}
 	}
+	for _, declaration := range []string{
+		"max-width: var(--container-width);",
+		"margin-inline: auto;",
+		"padding-inline: var(--gutter);",
+	} {
+		if !strings.Contains(asset.Body.String(), declaration) {
+			t.Errorf("shared container CSS does not contain %q", declaration)
+		}
+	}
 }
 
 func hrefs(fragment string) []string {
