@@ -37,10 +37,12 @@
   },
   "webchat": {
     "open": "KHotel WebChatを開く",
-    "launcher": "チャット",
     "label": "KHotel WebChat",
     "close": "WebChatを閉じる",
     "greeting": "どのようなご用件でしょうか？"
+  },
+  "feedback": {
+    "label": "フィードバック"
   },
   "footer": {
     "description": "心地よく過ごせる宿。",

@@ -1,12 +1,19 @@
 {{ if .Breadcrumbs }}
 <nav class="breadcrumb" aria-label="{{ t "accessibility.breadcrumb" }}">
     <ol class="container breadcrumb-list">
-        {{ range .Breadcrumbs }}
+        {{ range $index, $crumb := .Breadcrumbs }}
             <li>
-                {{ if .Current }}
-                    <span aria-current="page">{{ t .Label }}</span>
+                {{ if $crumb.Current }}
+                    <span aria-current="page">{{ t $crumb.Label }}</span>
                 {{ else }}
-                    <a href="{{ .URL }}">{{ t .Label }}</a>
+                    <a href="{{ $crumb.URL }}">
+                        {{ if eq $index 0 }}
+                            <svg class="breadcrumb-home-icon" aria-hidden="true" viewBox="0 0 20 20" width="16" height="16">
+                                <path d="m3 9 7-6 7 6v8h-5v-5H8v5H3Z"></path>
+                            </svg>
+                        {{ end }}
+                        <span>{{ t $crumb.Label }}</span>
+                    </a>
                 {{ end }}
             </li>
         {{ end }}

@@ -1,16 +1,18 @@
 :root {
-    --color-bg: #f4f1e9;
-    --color-surface: #fffdf8;
-    --color-text: #20231f;
-    --color-muted: #686c65;
-    --color-border: #d8d4c9;
-    --color-dark: #202421;
-    --color-dark-muted: #c9cec8;
-    --color-accent: #205b43;
-    --color-accent-hover: #174633;
-    --color-footer: #ebe7dc;
-    --color-focus: #b86d12;
-    --container-width: 75rem;
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-text: #20211f;
+    --color-muted: #62645f;
+    --color-border: #dedbd4;
+    --color-dark: #20211f;
+    --color-dark-muted: #d7d8d4;
+    --color-accent: #18533e;
+    --color-accent-hover: #123f2f;
+    --color-chat: #d83a0c;
+    --color-chat-hover: #b92f08;
+    --color-footer: #f5f3ee;
+    --color-focus: #b84d16;
+    --container-width: 90rem;
     --gutter: clamp(1rem, 3vw, 2rem);
     color: var(--color-text);
     background: var(--color-bg);
@@ -105,7 +107,7 @@ main:focus-visible {
 }
 
 .utility-bar {
-    min-height: 2.5rem;
+    min-height: 3.125rem;
     color: var(--color-dark-muted);
     background: var(--color-dark);
     font-size: .8125rem;
@@ -113,7 +115,7 @@ main:focus-visible {
 
 .utility-inner {
     display: flex;
-    min-height: 2.5rem;
+    min-height: 3.125rem;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
@@ -123,7 +125,7 @@ main:focus-visible {
 .utility-actions a,
 .language-menu summary {
     display: inline-flex;
-    min-height: 2.5rem;
+    min-height: 3.125rem;
     align-items: center;
     padding: 0;
     border: 0;
@@ -215,7 +217,7 @@ main:focus-visible {
 
 .primary-inner {
     display: grid;
-    min-height: 5rem;
+    min-height: 6.5rem;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: clamp(1.5rem, 4vw, 3.5rem);
@@ -241,7 +243,7 @@ main:focus-visible {
 .primary-nav a {
     position: relative;
     display: inline-flex;
-    min-height: 5rem;
+    min-height: 6.5rem;
     align-items: center;
     color: #383c37;
     font-size: .9375rem;
@@ -267,7 +269,8 @@ main:focus-visible {
 }
 
 .primary-nav a[aria-current="page"] {
-    color: var(--color-accent);
+    color: var(--color-text);
+    font-weight: 720;
 }
 
 .booking-action,
@@ -298,13 +301,14 @@ main:focus-visible {
 
 .breadcrumb {
     flex: none;
+    border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     background: var(--color-surface);
 }
 
 .breadcrumb-list {
     display: flex;
-    min-height: 3rem;
+    min-height: 4rem;
     margin-block: 0;
     align-items: center;
     gap: .65rem;
@@ -326,8 +330,20 @@ main:focus-visible {
 }
 
 .breadcrumb-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
     color: var(--color-muted);
     text-decoration: none;
+}
+
+.breadcrumb-home-icon {
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
 }
 
 .breadcrumb-list a:hover {
@@ -351,18 +367,28 @@ main:focus-visible {
 
 .page-placeholder {
     display: flex;
-    min-height: clamp(21rem, 46vh, 32rem);
+    min-height: clamp(25rem, 50vh, 38rem);
     flex: 1;
-    align-items: center;
+    align-items: flex-start;
+    padding-block: clamp(5rem, 9vh, 8rem);
 }
 
 .page-placeholder h1 {
     max-width: 18ch;
     margin: 0;
-    font-size: clamp(2.9rem, 6.5vw, 5.25rem);
-    font-weight: 620;
-    letter-spacing: -.052em;
-    line-height: 1;
+    font-size: clamp(3.25rem, 5vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -.045em;
+    line-height: 1.04;
+}
+
+.page-placeholder h1::after {
+    display: block;
+    width: 3rem;
+    height: .125rem;
+    margin-top: 1.25rem;
+    background: var(--color-accent);
+    content: "";
 }
 
 .error-placeholder .error-code {
@@ -383,51 +409,85 @@ main:focus-visible {
 .webchat-launcher {
     position: fixed;
     z-index: 40;
-    right: 1.25rem;
-    bottom: 1.25rem;
+    right: 1.75rem;
+    bottom: 8.75rem;
     display: inline-flex;
-    min-height: 3rem;
+    width: 4.25rem;
+    height: 4.25rem;
     align-items: center;
-    gap: .6rem;
-    padding: .7rem 1rem;
-    border: 1px solid var(--color-accent);
-    border-radius: .35rem;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--color-chat);
+    border-radius: 50%;
     color: #fff;
-    background: var(--color-accent);
-    box-shadow: 0 .5rem 1.25rem rgb(32 35 31 / 16%);
-    font-weight: 700;
+    background: var(--color-chat);
+    box-shadow: 0 .65rem 1.5rem rgb(32 33 31 / 22%);
     cursor: pointer;
 }
 
 .webchat-launcher:hover {
-    border-color: var(--color-accent-hover);
-    background: var(--color-accent-hover);
+    border-color: var(--color-chat-hover);
+    background: var(--color-chat-hover);
 }
 
 .webchat-icon {
     position: relative;
-    width: 1.1rem;
-    height: .85rem;
+    width: 1.55rem;
+    height: 1.2rem;
     border: 2px solid currentColor;
-    border-radius: .2rem;
+    border-radius: .3rem;
 }
 
 .webchat-icon::after {
     position: absolute;
-    bottom: -.35rem;
-    left: .15rem;
-    width: .35rem;
-    height: .35rem;
+    bottom: -.38rem;
+    left: .22rem;
+    width: .42rem;
+    height: .42rem;
     transform: rotate(45deg);
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
-    background: var(--color-accent);
+    background: var(--color-chat);
     content: "";
+}
+
+.webchat-launcher:hover .webchat-icon::after {
+    background: var(--color-chat-hover);
+}
+
+.feedback-control {
+    position: fixed;
+    z-index: 35;
+    top: 56%;
+    right: 0;
+    display: inline-flex;
+    min-width: 2.5rem;
+    min-height: 7rem;
+    align-items: center;
+    justify-content: center;
+    padding: .8rem .55rem;
+    border: 0;
+    border-radius: .3rem 0 0 .3rem;
+    color: #fff;
+    background: var(--color-dark);
+    box-shadow: 0 .35rem 1rem rgb(32 33 31 / 16%);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+}
+
+.feedback-control span {
+    writing-mode: vertical-rl;
+}
+
+.feedback-control:hover {
+    background: #343631;
 }
 
 .webchat-panel {
     position: fixed;
-    inset: auto 1.25rem 5rem auto;
+    inset: auto 1.75rem 13.75rem auto;
     width: min(calc(100vw - 2rem), 20rem);
     margin: 0;
     padding: 0;
@@ -476,12 +536,15 @@ main:focus-visible {
 
 .site-footer {
     flex: none;
-    border-top: 1px solid var(--color-border);
     color: var(--color-text);
+}
+
+.footer-main,
+.translation-bar {
     background: var(--color-footer);
 }
 
-.footer-main {
+.footer-main-inner {
     display: grid;
     padding-block: clamp(3.5rem, 7vw, 5.5rem);
     grid-template-columns: minmax(13rem, .8fr) minmax(30rem, 2fr);
@@ -522,22 +585,33 @@ main:focus-visible {
 }
 
 .footer-group a:hover {
-    color: var(--color-accent);
+    color: var(--color-text);
     text-decoration: underline;
 }
 
-.footer-bottom {
-    display: flex;
-    min-height: 5.5rem;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    padding-right: 8rem;
+.translation-bar {
     border-top: 1px solid var(--color-border);
+}
+
+.translation-inner {
+    display: flex;
+    min-height: 4.75rem;
+    align-items: center;
+    gap: .75rem;
     color: var(--color-muted);
     font-size: .8125rem;
 }
 
+.translation-icon {
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+}
+
+.translation-inner p,
 .footer-bottom p {
     margin: 0;
 }
@@ -546,13 +620,20 @@ main:focus-visible {
     max-width: 36rem;
 }
 
-.copyright {
-    text-align: right;
-    white-space: nowrap;
+.footer-bottom {
+    color: #f4f3ef;
+    background: var(--color-dark);
+}
+
+.footer-bottom-inner {
+    display: flex;
+    min-height: 3.75rem;
+    align-items: center;
+    font-size: .8125rem;
 }
 
 @media (max-width: 60rem) {
-    .footer-main {
+    .footer-main-inner {
         grid-template-columns: 1fr;
         gap: 3rem;
     }
@@ -643,18 +724,14 @@ main:focus-visible {
         gap: 2.5rem;
     }
 
-    .footer-bottom {
+    .translation-inner {
         min-height: 0;
         align-items: flex-start;
-        flex-direction: column;
-        padding-block: 1.5rem 2rem;
-        padding-right: 4rem;
-        gap: .75rem;
+        padding-block: 1.35rem;
     }
 
-    .copyright {
-        text-align: left;
-        white-space: normal;
+    .footer-bottom-inner {
+        min-height: 3.75rem;
     }
 }
 
@@ -678,37 +755,36 @@ main:focus-visible {
     }
 
     .breadcrumb-list {
-        min-height: 2.75rem;
+        min-height: 3.5rem;
     }
 
     .page-placeholder {
-        min-height: 20rem;
+        min-height: 22rem;
+        padding-block: 4rem;
     }
 
     .page-placeholder h1 {
-        font-size: clamp(2.7rem, 14vw, 4rem);
+        font-size: clamp(2.75rem, 13vw, 3.75rem);
     }
 
     .webchat-launcher {
         right: 1rem;
-        bottom: 1rem;
-        min-width: 3rem;
-        justify-content: center;
-        padding-inline: .85rem;
-    }
-
-    .webchat-launcher > span:last-child {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
+        bottom: 6.5rem;
+        width: 3.75rem;
+        height: 3.75rem;
     }
 
     .webchat-panel {
         right: 1rem;
-        bottom: 4.75rem;
+        bottom: 10.75rem;
+    }
+
+    .feedback-control {
+        top: 54%;
+        min-width: 2.25rem;
+        min-height: 6.25rem;
+        padding-inline: .4rem;
+        font-size: .6875rem;
     }
 }
 

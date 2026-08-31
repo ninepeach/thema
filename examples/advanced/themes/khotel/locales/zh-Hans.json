@@ -37,10 +37,12 @@
   },
   "webchat": {
     "open": "打开 KHotel WebChat",
-    "launcher": "聊天",
     "label": "KHotel WebChat",
     "close": "关闭 WebChat",
     "greeting": "我们可以为您做什么？"
+  },
+  "feedback": {
+    "label": "意见反馈"
   },
   "footer": {
     "description": "舒适自在的住宿之所。",

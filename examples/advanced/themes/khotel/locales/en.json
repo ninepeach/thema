@@ -37,10 +37,12 @@
   },
   "webchat": {
     "open": "Open KHotel WebChat",
-    "launcher": "Chat",
     "label": "KHotel WebChat",
     "close": "Close WebChat",
     "greeting": "How can we help?"
+  },
+  "feedback": {
+    "label": "Feedback"
   },
   "footer": {
     "description": "A comfortable place to stay.",

@@ -50,6 +50,7 @@ func TestPageShells(t *testing.T) {
 				`<div class="utility-bar">`,
 				`<nav class="primary-nav"`,
 				`<footer class="site-footer">`,
+				`<button class="feedback-control"`,
 				`<button class="webchat-launcher"`,
 				`<h1>` + tt.title + `</h1>`,
 			} {
@@ -148,16 +149,24 @@ func TestBreadcrumbs(t *testing.T) {
 	rooms := advancedRequest(t, handler, "/rooms").Body.String()
 	for _, want := range []string{
 		`<nav class="breadcrumb" aria-label="Breadcrumb">`,
-		`href="/">Home</a>`,
+		`href="/">`,
+		`class="breadcrumb-home-icon"`,
+		`<span>Home</span>`,
 		`<span aria-current="page">Rooms</span>`,
 	} {
 		if !strings.Contains(rooms, want) {
 			t.Errorf("rooms breadcrumb does not contain %q", want)
 		}
 	}
+	mainIndex := strings.Index(rooms, `<main id="main"`)
+	breadcrumbIndex := strings.Index(rooms, `<nav class="breadcrumb"`)
+	footerIndex := strings.Index(rooms, `<footer class="site-footer"`)
+	if mainIndex < 0 || breadcrumbIndex < 0 || footerIndex < 0 || !(mainIndex < breadcrumbIndex && breadcrumbIndex < footerIndex) {
+		t.Fatalf("shell order must be main, breadcrumb, footer; indexes = %d, %d, %d", mainIndex, breadcrumbIndex, footerIndex)
+	}
 
 	room := advancedRequest(t, handler, "/rooms/example-room").Body.String()
-	for _, want := range []string{`href="/">Home</a>`, `href="/rooms">Rooms</a>`, `<span aria-current="page">Room</span>`} {
+	for _, want := range []string{`href="/">`, `<span>Home</span>`, `href="/rooms">`, `<span>Rooms</span>`, `<span aria-current="page">Room</span>`} {
 		if !strings.Contains(room, want) {
 			t.Errorf("room breadcrumb does not contain %q", want)
 		}
@@ -196,6 +205,11 @@ func TestFooterAndWebChat(t *testing.T) {
 	if strings.Contains(footer, `language-menu`) || strings.Contains(footer, `?lang=`) {
 		t.Fatal("footer must not contain a language selector")
 	}
+	translationIndex := strings.Index(footer, `class="translation-bar"`)
+	copyrightIndex := strings.Index(footer, `class="footer-bottom"`)
+	if translationIndex < 0 || copyrightIndex < 0 || translationIndex >= copyrightIndex {
+		t.Fatalf("translation notice must render before copyright bar; indexes = %d, %d", translationIndex, copyrightIndex)
+	}
 
 	for _, want := range []string{
 		`popovertarget="webchat-panel"`,
@@ -203,6 +217,7 @@ func TestFooterAndWebChat(t *testing.T) {
 		`id="webchat-panel" popover`,
 		`aria-label="KHotel WebChat"`,
 		`How can we help?`,
+		`<button class="feedback-control" type="button" aria-label="Feedback">`,
 	} {
 		if !strings.Contains(body, want) {
 			t.Errorf("shared WebChat does not contain %q", want)
@@ -229,11 +244,12 @@ func TestSharedUIUsesAllSupportedLocales(t *testing.T) {
 		guestInfo   string
 		machineNote string
 		greeting    string
+		feedback    string
 	}{
-		{locale: "en", chat: "Chat with us", myStays: "My Stays", rooms: "Rooms", book: "Book Now", guestInfo: "Guest Information", machineNote: "Some content on this website may be machine translated.", greeting: "How can we help?"},
-		{locale: "ja", chat: "チャットで相談", myStays: "予約確認", rooms: "客室", book: "予約する", guestInfo: "ご利用案内", machineNote: "このウェブサイトの一部のコンテンツは機械翻訳されている場合があります。", greeting: "どのようなご用件でしょうか？"},
-		{locale: "zh-Hant", chat: "與我們聊天", myStays: "我的預訂", rooms: "客房", book: "立即預訂", guestInfo: "旅客須知", machineNote: "此網站的部分內容可能由機器翻譯。", greeting: "我們可以如何協助您？"},
-		{locale: "zh-Hans", chat: "与我们聊天", myStays: "我的预订", rooms: "客房", book: "立即预订", guestInfo: "住客须知", machineNote: "本网站的部分内容可能由机器翻译。", greeting: "我们可以为您做什么？"},
+		{locale: "en", chat: "Chat with us", myStays: "My Stays", rooms: "Rooms", book: "Book Now", guestInfo: "Guest Information", machineNote: "Some content on this website may be machine translated.", greeting: "How can we help?", feedback: "Feedback"},
+		{locale: "ja", chat: "チャットで相談", myStays: "予約確認", rooms: "客室", book: "予約する", guestInfo: "ご利用案内", machineNote: "このウェブサイトの一部のコンテンツは機械翻訳されている場合があります。", greeting: "どのようなご用件でしょうか？", feedback: "フィードバック"},
+		{locale: "zh-Hant", chat: "與我們聊天", myStays: "我的預訂", rooms: "客房", book: "立即預訂", guestInfo: "旅客須知", machineNote: "此網站的部分內容可能由機器翻譯。", greeting: "我們可以如何協助您？", feedback: "意見回饋"},
+		{locale: "zh-Hans", chat: "与我们聊天", myStays: "我的预订", rooms: "客房", book: "立即预订", guestInfo: "住客须知", machineNote: "本网站的部分内容可能由机器翻译。", greeting: "我们可以为您做什么？", feedback: "意见反馈"},
 	}
 
 	for _, tt := range tests {
@@ -248,6 +264,7 @@ func TestSharedUIUsesAllSupportedLocales(t *testing.T) {
 				tt.guestInfo,
 				tt.machineNote,
 				tt.greeting,
+				tt.feedback,
 				`lang="` + tt.locale + `" aria-current="true"`,
 			} {
 				if !strings.Contains(body, want) {
@@ -318,6 +335,7 @@ func TestGeneratedAssetIsServed(t *testing.T) {
 		".primary-header",
 		".mobile-menu",
 		".breadcrumb",
+		".feedback-control",
 		".webchat-launcher",
 		".site-footer",
 	} {
