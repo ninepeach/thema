@@ -2,7 +2,6 @@ package thema
 
 import (
 	"context"
-	"errors"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -51,21 +50,37 @@ func TestAssetGenerationChangesWithThemeContent(t *testing.T) {
 	}
 }
 
-func TestMissingAssetFailsWithoutCommit(t *testing.T) {
+func TestMissingAssetStillGeneratesURL(t *testing.T) {
 	repository := newTestTheme(t, map[string]string{
 		"pages/home.html": `before{{asset "css/missing.css"}}after`,
 	}, nil, nil)
+
 	views, err := New(repository, "default")
 	if err != nil {
 		t.Fatal(err)
 	}
-	output := strings.Builder{}
-	output.WriteString("existing")
-	err = views.Render(context.Background(), &output, "pages/home", nil)
-	if !errors.Is(err, ErrRender) || !errors.Is(err, ErrInvalidPath) {
-		t.Fatalf("unexpected error %v", err)
+
+	var output strings.Builder
+
+	if err := views.Render(
+		context.Background(),
+		&output,
+		"pages/home",
+		nil,
+	); err != nil {
+		t.Fatal(err)
 	}
-	if output.String() != "existing" {
-		t.Fatalf("destination changed to %q", output.String())
+
+	got := output.String()
+
+	if !strings.HasPrefix(
+		got,
+		`before/assets/default/css/missing.css?v=`,
+	) {
+		t.Fatalf("unexpected output %q", got)
+	}
+
+	if !strings.HasSuffix(got, "after") {
+		t.Fatalf("unexpected output %q", got)
 	}
 }
