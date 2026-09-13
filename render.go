@@ -95,9 +95,6 @@ func (e *Engine) assetURL(active *snapshot, name string) (string, error) {
 	if err := validateAssetPath(name); err != nil {
 		return "", err
 	}
-	if _, exists := active.pkg.assets[name]; !exists {
-		return "", fmt.Errorf("%w: asset %q", ErrInvalidPath, name)
-	}
 	parts := strings.Split(name, "/")
 	for index := range parts {
 		parts[index] = url.PathEscape(parts[index])
