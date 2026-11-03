@@ -192,6 +192,12 @@ func walkContextNodes(node parse.Node, visitPipe func(*parse.PipeNode) error, vi
 	if node == nil {
 		return nil
 	}
+	visit := func(pipe *parse.PipeNode) error {
+		if pipe == nil {
+			return nil
+		}
+		return visitPipe(pipe)
+	}
 	switch current := node.(type) {
 	case *parse.ListNode:
 		if current == nil {
@@ -203,14 +209,14 @@ func walkContextNodes(node parse.Node, visitPipe func(*parse.PipeNode) error, vi
 			}
 		}
 	case *parse.ActionNode:
-		return visitPipe(current.Pipe)
+		return visit(current.Pipe)
 	case *parse.TemplateNode:
-		if err := visitPipe(current.Pipe); err != nil {
+		if err := visit(current.Pipe); err != nil {
 			return err
 		}
 		return visitTemplate(current.Name)
 	case *parse.IfNode:
-		if err := visitPipe(current.Pipe); err != nil {
+		if err := visit(current.Pipe); err != nil {
 			return err
 		}
 		if err := walkContextNodes(current.List, visitPipe, visitTemplate); err != nil {
@@ -218,7 +224,7 @@ func walkContextNodes(node parse.Node, visitPipe func(*parse.PipeNode) error, vi
 		}
 		return walkContextNodes(current.ElseList, visitPipe, visitTemplate)
 	case *parse.RangeNode:
-		if err := visitPipe(current.Pipe); err != nil {
+		if err := visit(current.Pipe); err != nil {
 			return err
 		}
 		if err := walkContextNodes(current.List, visitPipe, visitTemplate); err != nil {
@@ -226,7 +232,7 @@ func walkContextNodes(node parse.Node, visitPipe func(*parse.PipeNode) error, vi
 		}
 		return walkContextNodes(current.ElseList, visitPipe, visitTemplate)
 	case *parse.WithNode:
-		if err := visitPipe(current.Pipe); err != nil {
+		if err := visit(current.Pipe); err != nil {
 			return err
 		}
 		if err := walkContextNodes(current.List, visitPipe, visitTemplate); err != nil {
@@ -247,6 +253,9 @@ func countIdentifier(node parse.Node, name string) int {
 			return 1
 		}
 	case *parse.PipeNode:
+		if current == nil {
+			return 0
+		}
 		count := 0
 		for _, command := range current.Cmds {
 			count += countIdentifier(command, name)

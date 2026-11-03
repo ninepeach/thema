@@ -76,6 +76,25 @@ func TestNativeControlActionsWithoutElse(t *testing.T) {
 	assertRender(t, views, "pages/home", data, "Rooms: A B ready")
 }
 
+func TestTemplateActionWithoutPipeline(t *testing.T) {
+	repository := newTestTheme(t, map[string]string{
+		"components/plain.html": `{{define "components/plain"}}hello{{end}}`,
+		"pages/home.html":       `{{slot "navigation.main" .}}{{template "components/plain"}}`,
+	}, nil, nil)
+	views, err := New(repository, "default")
+	if err != nil {
+		t.Fatal(err)
+	}
+	assertRender(t, views, "pages/home", nil, "hello")
+
+	page := filepath.Join(repository, "default", "templates", "pages", "home.html")
+	writeTestFile(t, page, []byte(`refreshed {{slot "navigation.main" .}}{{template "components/plain"}}`))
+	if changed, err := views.Refresh(context.Background()); err != nil || !changed {
+		t.Fatalf("Refresh() = %v, %v", changed, err)
+	}
+	assertRender(t, views, "pages/home", nil, "refreshed hello")
+}
+
 func TestRenderCommitsOnlyAfterSuccessfulExecution(t *testing.T) {
 	repository := newTestTheme(t, map[string]string{
 		"pages/home.html": `before{{fail}}after`,
